@@ -1,0 +1,47 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "R Programming"
+  reader-mode: true
+  chapters:
+    - index.qmd
+    - control_structure.qmd
+    - exception_handling.qmd
+    - environments.qmd
+    - functions.qmd
+    - Functional_Programming.qmd
+    - Generic_Programming.qmd
+    - object_oriented_programming.qmd
+    - meta_programming.qmd
+    - quasiquotation.qmd
+    - evaluation.qmd
+
+
+     
+execute:
+  message: false 
+  warning: false 
+  
+toc: true
+toc-depth: 4
+number-sections: true
+number-depth: 4
+
+code-fold: show
+code-tools: true
+code-link: true
+code-summary: "Show the code"
+knitr:
+  opts_chunk: 
+    comment: "#>" 
+    collapse: TRUE
+
+
+format:
+  html:
+    theme: cosmo
+
+editor: visual
+
