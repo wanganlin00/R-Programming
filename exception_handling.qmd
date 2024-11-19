@@ -197,7 +197,7 @@ tryCatch(
 
 ### 调用处理程序
 
-[`withCallingHandlers()`](https://rdrr.io/r/base/conditions.html)定义**calling**handlers，适合处理非错误条件，一旦处理程序返回，代码执行将正常继续
+[`withCallingHandlers()`](https://rdrr.io/r/base/conditions.html)定义**calling** handlers，适合处理非错误条件，一旦处理程序返回，代码执行将正常继续
 
 ```{r eval=FALSE}
 withCallingHandlers(

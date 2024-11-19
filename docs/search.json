@@ -1,0 +1,582 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R Programming",
+    "section": "",
+    "text": "推荐阅读\n\nAdvanced R\nEfficient R programming\nR Packages(2e)",
+    "crumbs": [
+      "推荐阅读"
+    ]
+  },
+  {
+    "objectID": "control_structure.html",
+    "href": "control_structure.html",
+    "title": "\n1  控制结构\n",
+    "section": "",
+    "text": "1.1 顺序结构",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>控制结构</span>"
+    ]
+  },
+  {
+    "objectID": "control_structure.html#分支结构",
+    "href": "control_structure.html#分支结构",
+    "title": "\n1  控制结构\n",
+    "section": "\n1.2 分支结构",
+    "text": "1.2 分支结构\n\n1.2.1 if() 和 else\n\nShow the codex &lt;- 10\n\nif(x %%3 ==0) {\n    message(\"能被3整除\")\n} else {\n    message(\"不能被3整除\")\n}\n\n\n\n1.2.2 ifelse()\n\nShow the codex &lt;- c(10,9)\nifelse(x %%3 ==0,\"能被3整除\",\"不能被3整除\")\n#&gt; [1] \"不能被3整除\" \"能被3整除\"\nif_else(x %%3 ==0,\"能被3整除\",\"不能被3整除\")\n#&gt; [1] \"不能被3整除\" \"能被3整除\"\n\n\n\n1.2.3 case_when()\n\nShow the codex &lt;- 1:10\ndplyr::case_when(\n  x %% 35 == 0 ~ \"fizz buzz\",\n  x %% 5 == 0 ~ \"fizz\",\n  x %% 7 == 0 ~ \"buzz\",\n  is.na(x) ~ \"???\",\n  TRUE ~ as.character(x)\n)\n#&gt;  [1] \"1\"    \"2\"    \"3\"    \"4\"    \"fizz\" \"6\"    \"buzz\" \"8\"    \"9\"    \"fizz\"\n\n\n\n1.2.4 switch()\n\nShow the code# 如果多个输入具有相同的输出，则可以将右侧留空，输入将“掉入”到下一个值。这模仿了 C 语句的行为\nnlegs &lt;- function(x) {\n  switch(x,\n    cow = ,\n    horse = ,\n    dog = 4,\n    human = ,\n    chicken = 2,\n    plant = 0,\n    stop(\"Unknown input\")  #最后应该始终抛出错误，否则不匹配的输入将返回 NULL\n  )\n}\nnlegs(\"cow\")\n#&gt; [1] 4\n\nnlegs(\"do6\")\n#&gt; Error in nlegs(\"do6\"): Unknown input",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>控制结构</span>"
+    ]
+  },
+  {
+    "objectID": "control_structure.html#循环结构",
+    "href": "control_structure.html#循环结构",
+    "title": "\n1  控制结构\n",
+    "section": "\n1.3 循环结构",
+    "text": "1.3 循环结构\n\n1.3.1 for\n\nShow the codefor(i in 1:5){\n    print(1:i)\n}\n#&gt; [1] 1\n#&gt; [1] 1 2\n#&gt; [1] 1 2 3\n#&gt; [1] 1 2 3 4\n#&gt; [1] 1 2 3 4 5\n\n\n\nShow the codefor (i in 1:10) {\n  if (i &lt; 3) \n    next  # 退出当前迭代,后面不执行了\n\n  print(i)\n  \n  if (i &gt;= 5)\n    break # 退出整个循环\n}\n#&gt; [1] 3\n#&gt; [1] 4\n#&gt; [1] 5\n\n\n\n1.3.2 while()\n\nShow the codei &lt;- 0\nwhile(i&lt;=10){\n    print(i)\n    i=i+1\n}\n#&gt; [1] 0\n#&gt; [1] 1\n#&gt; [1] 2\n#&gt; [1] 3\n#&gt; [1] 4\n#&gt; [1] 5\n#&gt; [1] 6\n#&gt; [1] 7\n#&gt; [1] 8\n#&gt; [1] 9\n#&gt; [1] 10\n\n\n\nShow the codeflag &lt;- TRUE\nx &lt;- 0\ni &lt;- 0\nwhile(flag){\n    x &lt;- x+1\n    if(x%%3==0) {\n        i &lt;- i+1\n        print(x)\n    }\n    if(i==25) flag &lt;- FALSE\n}\n#&gt; [1] 3\n#&gt; [1] 6\n#&gt; [1] 9\n#&gt; [1] 12\n#&gt; [1] 15\n#&gt; [1] 18\n#&gt; [1] 21\n#&gt; [1] 24\n#&gt; [1] 27\n#&gt; [1] 30\n#&gt; [1] 33\n#&gt; [1] 36\n#&gt; [1] 39\n#&gt; [1] 42\n#&gt; [1] 45\n#&gt; [1] 48\n#&gt; [1] 51\n#&gt; [1] 54\n#&gt; [1] 57\n#&gt; [1] 60\n#&gt; [1] 63\n#&gt; [1] 66\n#&gt; [1] 69\n#&gt; [1] 72\n#&gt; [1] 75\n\n\n\n1.3.3 repeat()\n\nShow the codei &lt;- 1\n\nrepeat{\n  print(i)\n  i &lt;- i*2\n  if (i &gt; 100) break  # 跳出当前的循环\n}\n#&gt; [1] 1\n#&gt; [1] 2\n#&gt; [1] 4\n#&gt; [1] 8\n#&gt; [1] 16\n#&gt; [1] 32\n#&gt; [1] 64\n\n\n\nShow the codei &lt;- 1\n\nrepeat{\n  print(i)\n  i &lt;- i*2\n  if (i &gt; 200) break()\n  if (i &gt; 100) next()  #跳过后续代码的运行进入下一次循环\n  print(\"Can you see me?\")\n}\n#&gt; [1] 1\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 2\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 4\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 8\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 16\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 32\n#&gt; [1] \"Can you see me?\"\n#&gt; [1] 64\n#&gt; [1] 128",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>控制结构</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html",
+    "href": "exception_handling.html",
+    "title": "\n2  异常处理\n",
+    "section": "",
+    "text": "2.1 signals conditions\nR中的条件（condition）系统提供了一组成对的工具，提示函数正在发生异常情况，并允许该函数的用户处理它\nShow the codestop(\"This is what an error looks like\")\n#&gt; Error: This is what an error looks like\n\n\nwarning(\"This is what a warning looks like\")\n\n\nmessage(\"This is what a message looks like\")\n\nprint(\"Running...\")\n#&gt; [1] \"Running...\"\ncat(\"Running...\\n\")\n#&gt; Running...",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html#signals-conditions",
+    "href": "exception_handling.html#signals-conditions",
+    "title": "\n2  异常处理\n",
+    "section": "",
+    "text": "stop() for errors\n\nwarning() for warnings\n\nmessage() for messages\n\n\n\n2.1.1 error\n停止执行并返回到顶部\n\nShow the codeh &lt;- function() stop(\"This is an error!\")\nh()\n#&gt; Error in h(): This is an error!\n\n# 不包含调用信息\nh &lt;- function() stop(\"This is an error!\", call. = FALSE)\nh()\n#&gt; Error: This is an error!\n\nh &lt;- function() rlang::abort(\"This is an error!\")\nh()\n#&gt; Error in `h()`:\n#&gt; ! This is an error!\n\n\n\n2.1.2 warning\n捕获警告并聚合显示\n\n要使警告立即显示，请设置 options(warn = 1)\n要将警告转换为错误，请设置 options(warn = 2)。这通常是 调试警告的最简单方法，因为一旦出现错误，就可以 使用工具，例如查找源头traceback()\n使用 options(warn = 0)恢复默认行为。\n\n\nShow the codefw &lt;- function() {\n  cat(\"1\\n\")\n  warning(\"W1\")\n  cat(\"2\\n\")\n  warning(\"W2\")\n  cat(\"3\\n\")\n  warning(\"W3\",call. = FALSE)\n}\nfw()\n#&gt; 1\n#&gt; 2\n#&gt; 3\n\nfw &lt;- function() {\n  cat(\"1\\n\")\n  rlang::warn(\"W1\")\n  cat(\"2\\n\")\n  rlang::warn(\"W2\")\n  cat(\"3\\n\")\n  rlang::warn(\"W3\")\n}\nfw()\n#&gt; 1\n#&gt; 2\n#&gt; 3\n\n\n\n2.1.3 message\n消息立即显示\n参数quiet = TRUE 抑制所有消息suppressMessages()\n\nShow the code# 无 call. 参数\nfm &lt;- function() {\n  cat(\"1\\n\")\n  message(\"M1\")\n  cat(\"2\\n\")\n  message(\"M2\")\n  cat(\"3\\n\")\n  message(\"M3\")\n}\n\nfm()\n#&gt; 1\n#&gt; 2\n#&gt; 3",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html#忽略信息",
+    "href": "exception_handling.html#忽略信息",
+    "title": "\n2  异常处理\n",
+    "section": "\n2.2 忽略信息",
+    "text": "2.2 忽略信息\n\n\n忽略错误：try()，最好是使用tryCatch()\n\nShow the code\ntry(log(\"a\"))\n#&gt; Error in log(\"a\") : non-numeric argument to mathematical function\ntry(log(\"a\"),silent = TRUE)\n\n\n\n\n忽略警告。suppressWarnings()\n\nShow the codesuppressWarnings({\n    warning(\"Uhoh!\")\n    warning(\"Another warning\")\n    1\n})\n#&gt; [1] 1\n\n\n\n\n忽略消息。suppressMessages()\n\nShow the codesuppressMessages({\n    message(\"Hello there\")\n    \"ABC\"\n})\n#&gt; [1] \"ABC\"",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html#条件处理程序",
+    "href": "exception_handling.html#条件处理程序",
+    "title": "\n2  异常处理\n",
+    "section": "\n2.3 条件处理程序",
+    "text": "2.3 条件处理程序\n\n2.3.1 条件对象\n\nShow the codecnd &lt;- rlang::catch_cnd(stop(\"An error\"))\nstr(cnd)\n#&gt; List of 2\n#&gt;  $ message: chr \"An error\"\n#&gt;  $ call   : language force(expr)\n#&gt;  - attr(*, \"class\")= chr [1:3] \"simpleError\" \"error\" \"condition\"\n\nconditionMessage(cnd)\n#&gt; [1] \"An error\"\nconditionCall(cnd)\n#&gt; force(expr)\n\n\n\n2.3.2 退出处理程序\n处理条件信息\n\ntryCatch()\nwithCallingHandlers()\n\ntryCatch()定义exitinghandlers，，通常用于处理错误情况。它允许您覆盖默认的错误行为。\n\nShow the codetryCatch(\n  error = function(cnd) {\n    # code to run when error is thrown\n  },\n  code_to_run_while_handlers_are_active\n)\n\n\n\nShow the codef3 &lt;- function(x) {\n  tryCatch(\n    error = function(cnd) NA,\n    log(x)\n  )\n}\n\nf3(\"x\")\n#&gt; [1] NA\n\n\n在发出条件信号后，控制权将传递给处理程序，并且永远不会返回到原始代码，这实际上意味着代码退出\n\nShow the codetryCatch(\n  message = function(cnd) \"There\",\n  {\n    message(\"Here\")\n    stop(\"This code is never run!\")\n  }\n)\n#&gt; [1] \"There\"\n\n\n类似Python的\ntry: \n    {}\nfinally:\n    {}\n\nShow the codetryCatch(\n  {\n    write.table(\"Hi!\", \"data/异常处理.csv\")\n  },\n  finally = {\n    # always run\n    x &lt;- read.table(\"data/异常处理.csv\")\n    print(\"你好\")\n  }\n)\n#&gt; [1] \"你好\"\n\n\n\n2.3.3 调用处理程序\nwithCallingHandlers()定义calling handlers，适合处理非错误条件，一旦处理程序返回，代码执行将正常继续\n\nShow the codewithCallingHandlers(\n  warning = function(cnd) {\n    # code to run when warning is signalled\n  },\n  message = function(cnd) {\n    # code to run when message is signalled\n  },\n  code_to_run_while_handlers_are_active\n)\n\n\n\nShow the codetryCatch(\n  message = function(cnd) cat(\"Caught a message!\\n\"), \n  {\n    message(\"Someone there?\")\n    message(\"Why, yes!\")\n  }\n)\n#&gt; Caught a message!\n\n\nwithCallingHandlers(\n  message = function(cnd) cat(\"Caught a message!\\n\"), \n  {\n    message(\"Someone there?\")\n    message(\"Why, yes!\")\n  }\n)\n#&gt; Caught a message!\n#&gt; Caught a message!",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html#自定义条件",
+    "href": "exception_handling.html#自定义条件",
+    "title": "\n2  异常处理\n",
+    "section": "\n2.4 自定义条件",
+    "text": "2.4 自定义条件\n\nShow the codelibrary(rlang)\n\nmy_log &lt;- function(x, base = exp(1)) {\n  if (!is.numeric(x)) {\n    abort(paste0(\n      \"`x` must be a numeric vector; not \", typeof(x), \".\"\n    ))\n  }\n  if (!is.numeric(base)) {\n    abort(paste0(\n      \"`base` must be a numeric vector; not \", typeof(base), \".\"\n    ))\n  }\n\n  base::log(x, base = base)\n}\n\n\n\nShow the codemy_log(letters)\n#&gt; Error in `my_log()`:\n#&gt; ! `x` must be a numeric vector; not character.\nmy_log(1:10, base = letters)\n#&gt; Error in `my_log()`:\n#&gt; ! `base` must be a numeric vector; not character.\n\n\n\nShow the codeabort_bad_argument &lt;- function(arg, must, not = NULL) {\n  msg &lt;- glue::glue(\"`{arg}` must {must}\")\n  if (!is.null(not)) {\n    not &lt;- typeof(not)\n    msg &lt;- glue::glue(\"{msg}; not {not}.\")\n  }\n  \n  abort(\"error_bad_argument\", \n    message = msg, \n    arg = arg, \n    must = must, \n    not = not\n  )\n}\n\nstop_custom &lt;- function(.subclass, message, call = NULL, ...) {\n  err &lt;- structure(\n    list(\n      message = message,\n      call = call,\n      ...\n    ),\n    class = c(.subclass, \"error\", \"condition\")\n  )\n  stop(err)\n}\n\nerr &lt;- catch_cnd(\n  stop_custom(\"error_new\", \"This is a custom error\", x = 10)\n)\nclass(err)\n#&gt; [1] \"error_new\" \"error\"     \"condition\"\nerr$x\n#&gt; [1] 10\n\n\n重写my_log\n\nShow the codemy_log &lt;- function(x, base = exp(1)) {\n  if (!is.numeric(x)) {\n    abort_bad_argument(\"x\", must = \"be numeric\", not = x)\n  }\n  if (!is.numeric(base)) {\n    abort_bad_argument(\"base\", must = \"be numeric\", not = base)\n  }\n\n  base::log(x, base = base)\n}\n\n\n\nShow the codemy_log(letters)\n#&gt; Error in `abort_bad_argument()`:\n#&gt; ! `x` must be numeric; not character.\nmy_log(letters)\n#&gt; Error in `abort_bad_argument()`:\n#&gt; ! `x` must be numeric; not character.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "exception_handling.html#debugging",
+    "href": "exception_handling.html#debugging",
+    "title": "\n2  异常处理\n",
+    "section": "\n2.5 Debugging",
+    "text": "2.5 Debugging\ntraceback(): 函数调用栈\n\nShow the codelm(y ~ x)\n#&gt; Error in eval(predvars, data, env): object 'y' not found\ntraceback() \n#&gt; No traceback available\n\n\n表示第7次调用函数出现错误。\ndebug() : 标记函数，调用函数时出现错误自动进入browser，输入 n 一行一行运行直到出现错误\n\nShow the codedebug(lm)\nlm(y ~ x)\n#&gt; debugging in: lm(y ~ x)\n#&gt; debug: {\n#&gt;     ret.x &lt;- x\n#&gt;     ret.y &lt;- y\n#&gt;     cl &lt;- match.call()\n#&gt;     mf &lt;- match.call(expand.dots = FALSE)\n#&gt;     m &lt;- match(c(\"formula\", \"data\", \"subset\", \"weights\", \"na.action\", \n#&gt;         \"offset\"), names(mf), 0L)\n#&gt;     mf &lt;- mf[c(1L, m)]\n#&gt;     mf$drop.unused.levels &lt;- TRUE\n#&gt;     mf[[1L]] &lt;- quote(stats::model.frame)\n#&gt;     mf &lt;- eval(mf, parent.frame())\n#&gt;     if (method == \"model.frame\") \n#&gt;         return(mf)\n#&gt;     else if (method != \"qr\") \n#&gt;         warning(gettextf(\"method = '%s' is not supported. Using 'qr'\", \n#&gt;             method), domain = NA)\n#&gt;     mt &lt;- attr(mf, \"terms\")\n#&gt;     y &lt;- model.response(mf, \"numeric\")\n#&gt;     w &lt;- as.vector(model.weights(mf))\n#&gt;     if (!is.null(w) && !is.numeric(w)) \n#&gt;         stop(\"'weights' must be a numeric vector\")\n#&gt;     offset &lt;- model.offset(mf)\n#&gt;     mlm &lt;- is.matrix(y)\n#&gt;     ny &lt;- if (mlm) \n#&gt;         nrow(y)\n#&gt;     else length(y)\n#&gt;     if (!is.null(offset)) {\n#&gt;         if (!mlm) \n#&gt;             offset &lt;- as.vector(offset)\n#&gt;         if (NROW(offset) != ny) \n#&gt;             stop(gettextf(\"number of offsets is %d, should equal %d (number of observations)\", \n#&gt;                 NROW(offset), ny), domain = NA)\n#&gt;     }\n#&gt;     if (is.empty.model(mt)) {\n#&gt;         x &lt;- NULL\n#&gt;         z &lt;- list(coefficients = if (mlm) matrix(NA_real_, 0, \n#&gt;             ncol(y)) else numeric(), residuals = y, fitted.values = 0 * \n#&gt;             y, weights = w, rank = 0L, df.residual = if (!is.null(w)) sum(w != \n#&gt;             0) else ny)\n#&gt;         if (!is.null(offset)) {\n#&gt;             z$fitted.values &lt;- offset\n#&gt;             z$residuals &lt;- y - offset\n#&gt;         }\n#&gt;     }\n#&gt;     else {\n#&gt;         x &lt;- model.matrix(mt, mf, contrasts)\n#&gt;         z &lt;- if (is.null(w)) \n#&gt;             lm.fit(x, y, offset = offset, singular.ok = singular.ok, \n#&gt;                 ...)\n#&gt;         else lm.wfit(x, y, w, offset = offset, singular.ok = singular.ok, \n#&gt;             ...)\n#&gt;     }\n#&gt;     class(z) &lt;- c(if (mlm) \"mlm\", \"lm\")\n#&gt;     z$na.action &lt;- attr(mf, \"na.action\")\n#&gt;     z$offset &lt;- offset\n#&gt;     z$contrasts &lt;- attr(x, \"contrasts\")\n#&gt;     z$xlevels &lt;- .getXlevels(mt, mf)\n#&gt;     z$call &lt;- cl\n#&gt;     z$terms &lt;- mt\n#&gt;     if (model) \n#&gt;         z$model &lt;- mf\n#&gt;     if (ret.x) \n#&gt;         z$x &lt;- x\n#&gt;     if (ret.y) \n#&gt;         z$y &lt;- y\n#&gt;     if (!qr) \n#&gt;         z$qr &lt;- NULL\n#&gt;     z\n#&gt; }\n#&gt; debug: ret.x &lt;- x\n#&gt; debug: ret.y &lt;- y\n#&gt; debug: cl &lt;- match.call()\n#&gt; debug: mf &lt;- match.call(expand.dots = FALSE)\n#&gt; debug: m &lt;- match(c(\"formula\", \"data\", \"subset\", \"weights\", \"na.action\", \n#&gt;     \"offset\"), names(mf), 0L)\n#&gt; debug: mf &lt;- mf[c(1L, m)]\n#&gt; debug: mf$drop.unused.levels &lt;- TRUE\n#&gt; debug: mf[[1L]] &lt;- quote(stats::model.frame)\n#&gt; debug: mf &lt;- eval(mf, parent.frame())\n#&gt; Error in eval(predvars, data, env): object 'y' not found\n\n\n# Browse[1]&gt; n\n# debug: ret.x &lt;- x\n# Browse[1]&gt; n\n# debug: ret.y &lt;- y\n# Browse[1]&gt; n\n# debug: cl &lt;- match.call()\n# Browse[1]&gt; n\n# debug: mf &lt;- match.call(expand.dots = FALSE)\n# Browse[1]&gt; n\n# debug: m &lt;- match(c(\"formula\", \"data\", \"subset\", \"weights\", \"na.action\", \n#     \"offset\"), names(mf), 0L)\n# Browse[1]&gt; n\n# debug: mf &lt;- mf[c(1L, m)]\n# Browse[1]&gt; n\n# debug: mf$drop.unused.levels &lt;- TRUE\n# Browse[1]&gt; n\n# debug: mf[[1L]] &lt;- quote(stats::model.frame)\n# Browse[1]&gt; n\n# debug: mf &lt;- eval(mf, parent.frame())\n# Browse[1]&gt; n\n# Error in eval(predvars, data, env) : object 'y' not found\n\n\nundebug(lm)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>异常处理</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html",
+    "href": "environments.html",
+    "title": "\n3  环境\n",
+    "section": "",
+    "text": "3.1 环境类型\n在编程语言中，环境指的是一个包含对象、变量和函数的虚拟空间。环境可以理解为一个包含名称和与之绑定（bind）的值的集合，并且每个环境都有一个父环境，形成一个层次结构。R语言中的环境概念与作用域规则紧密相关，尤其是词法作用域（Lexical scoping）。\n词法作用域，也称为静态作用域，是根据代码的书写结构来确定变量的可见性和作用域的。这意味着变量的作用域是由它被定义时的环境决定的，而不是在运行时动态决定的。例如，当在函数中访问一个变量时，R会首先在函数自身的环境内查找，如果没有找到，就会沿着环境链向上在父环境中查找，直到找到该变量或者达到全局环境 。\n在R中，词法作用域遵循以下原则：",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html#环境类型",
+    "href": "environments.html#环境类型",
+    "title": "\n3  环境\n",
+    "section": "",
+    "text": "3.1.1 当前环境与全局环境\n\nShow the code# 访问全局环境\nglobalenv()\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\n# 访问当前环境\nenvironment()\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\n\ncurrent_env()\nglobal_env()\n\nShow the codelibrary(rlang)\nidentical(global_env(), current_env())\n#&gt; [1] TRUE\n\n# 环境不是向量\nglobal_env() == current_env() \n#&gt; Error in global_env() == current_env(): comparison (==) is possible only for atomic and list types\n\n\n\nShow the codetypeof(globalenv())\n#&gt; [1] \"environment\"\nclass(globalenv())\n#&gt; [1] \"environment\"\n\nis.atomic(globalenv())\n#&gt; [1] FALSE\nis.list(globalenv())\n#&gt; [1] FALSE\n\nis.environment(globalenv())\n#&gt; [1] TRUE\n\n\n\n3.1.2 父环境\n每个环境都有一个父环境（parent）。用于实现词法作用域：如果在当前环境中找不到名称，则 R 将在其父环境中查找（依此类推）。可以通过向 env() 提供未命名的参数来设置父环境。如果不提供它，它将默认为当前环境。\n\nShow the codee2a&lt;- env(d = 4, e = 5)\ne2b &lt;- env(e2a, a = 1, b = 2, c = 3)\n\n\n\n\n\n\ne2a 是 e2b 的父级。\n\nShow the code# 查看父级\nidentical(e2a, env_parent(e2b))\n#&gt; [1] TRUE\nenv_parent(e2a)\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\n\n默认情况下，当到达全局环境时停止。如果覆盖默认行为，则可以看到全局环境的父级包括每个加载的包。\n\nShow the code# 查看所有父级\ne2a\n#&gt; &lt;environment: 0x00000280c7051f98&gt;\nenv_parents(e2b)\n#&gt; [[1]]   &lt;env: 0x00000280c7051f98&gt;\n#&gt; [[2]] $ &lt;env: global&gt;\nenv_parents(e2b, last = empty_env())\n#&gt;  [[1]]   &lt;env: 0x00000280c7051f98&gt;\n#&gt;  [[2]] $ &lt;env: global&gt;\n#&gt;  [[3]] $ &lt;env: .conflicts&gt;\n#&gt;  [[4]] $ &lt;env: package:rlang&gt;\n#&gt;  [[5]] $ &lt;env: package:stats&gt;\n#&gt;  [[6]] $ &lt;env: package:graphics&gt;\n#&gt;  [[7]] $ &lt;env: package:grDevices&gt;\n#&gt;  [[8]] $ &lt;env: package:utils&gt;\n#&gt;  [[9]] $ &lt;env: package:datasets&gt;\n#&gt; [[10]] $ &lt;env: package:writexl&gt;\n#&gt; [[11]] $ &lt;env: package:readxl&gt;\n#&gt; [[12]] $ &lt;env: package:lubridate&gt;\n#&gt; [[13]] $ &lt;env: package:forcats&gt;\n#&gt; [[14]] $ &lt;env: package:stringr&gt;\n#&gt; [[15]] $ &lt;env: package:dplyr&gt;\n#&gt; [[16]] $ &lt;env: package:purrr&gt;\n#&gt; [[17]] $ &lt;env: package:readr&gt;\n#&gt; [[18]] $ &lt;env: package:tidyr&gt;\n#&gt; [[19]] $ &lt;env: package:tibble&gt;\n#&gt; [[20]] $ &lt;env: package:ggplot2&gt;\n#&gt; ... and 9 more environments\n\n\n\n3.1.3 空环境\n只有一个环境没有父环境：空( empty)环境。每个环境的父级最终都会随着空环境而终止。\n\nShow the codee2c &lt;- env(empty_env(), d = 4, e = 5)\ne2d &lt;- env(e2c, a = 1, b = 2, c = 3)\n\n\n\n\n\n\n\nShow the code# 查看所有父级\nenv_parents(e2d)\n#&gt; [[1]]   &lt;env: 0x00000280c028cdd8&gt;\n#&gt; [[2]] $ &lt;env: empty&gt;\ne2c\n#&gt; &lt;environment: 0x00000280c028cdd8&gt;\nenv_parents(e2c)\n#&gt; [[1]] $ &lt;env: empty&gt;",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html#环境操作",
+    "href": "environments.html#环境操作",
+    "title": "\n3  环境\n",
+    "section": "\n3.2 环境操作",
+    "text": "3.2 环境操作\n\n修改时不会复制环境。\n\n\n3.2.1 创建环境\n环境的工作是将一组名称关联或绑定（bind）到一组值。\n\nShow the code# name-value pairs\ne1 &lt;- rlang::env(\n  a = FALSE,\n  b = \"a\",\n  c = 2.3,\n  d = 1:3,\n)\n\n\n# 绑定自身\ne1$d &lt;- e1\n\n# 只显示内存地址\ne1 \n#&gt; &lt;environment: 0x00000280bf28a4a8&gt;\n\n# \nenv_print(e1)\n#&gt; &lt;environment: 0x00000280bf28a4a8&gt;\n#&gt; Parent: &lt;environment: global&gt;\n#&gt; Bindings:\n#&gt; • a: &lt;lgl&gt;\n#&gt; • b: &lt;chr&gt;\n#&gt; • c: &lt;dbl&gt;\n#&gt; • d: &lt;env&gt;\nenv_names(e1)\n#&gt; [1] \"a\" \"b\" \"c\" \"d\"\nnames(e1)\n#&gt; [1] \"a\" \"b\" \"c\" \"d\"\n\n\nnew.env() 也可用于创建新环境。 hash size\n\nShow the codemy_env &lt;- base::new.env(parent = emptyenv())\nmy_env$a &lt;- 1\n\n\n\n3.2.2 超级赋值 &lt;&lt;-\n\n常规赋值 &lt;- 始终在当前环境中创建绑定一个变量\n超级赋值 &lt;&lt;- ，重新绑定当前环境的父级中的现有名称\n\nShow the codex &lt;- 0\nf &lt;- function() {\n  x &lt;&lt;- 1\n}\nf()\nx\n#&gt; [1] 1\n\n\n\n3.2.3 访问对象\n\nShow the codeenv_print(e1)\n#&gt; &lt;environment: 0x00000280bf28a4a8&gt;\n#&gt; Parent: &lt;environment: global&gt;\n#&gt; Bindings:\n#&gt; • a: &lt;lgl&gt;\n#&gt; • b: &lt;chr&gt;\n#&gt; • c: &lt;dbl&gt;\n#&gt; • d: &lt;env&gt;\n\n# error  无顺序，不能用数字索引\ne1[[1]]\n#&gt; Error in e1[[1]]: wrong arguments for subsetting an environment\n\n# $ [[\"name]]\ne1$b\n#&gt; [1] \"a\"\ne1[[\"a\"]]\n#&gt; [1] FALSE\n\n\n\n3.2.4 添加绑定\n\nShow the code# 单个\nenv_poke(e1, \"e\", 100)\n\n# 多个\nenv_bind(e1, x = 10, y = 20)\n\nenv_print(e1)\n#&gt; &lt;environment: 0x00000280bf28a4a8&gt;\n#&gt; Parent: &lt;environment: global&gt;\n#&gt; Bindings:\n#&gt; • x: &lt;dbl&gt;\n#&gt; • y: &lt;dbl&gt;\n#&gt; • a: &lt;lgl&gt;\n#&gt; • b: &lt;chr&gt;\n#&gt; • c: &lt;dbl&gt;\n#&gt; • d: &lt;env&gt;\n#&gt; • e: &lt;dbl&gt;\n\n\n\n3.2.5 解除绑定\n\nShow the codee1$x &lt;- NULL  # 不能删除\nenv_has(e1, \"x\")\n#&gt;    x \n#&gt; TRUE\n\n\nenv_unbind(e1, \"x\") # 解绑定\nenv_has(e1, \"x\")\n#&gt;     x \n#&gt; FALSE\n\nenv_print(e1)\n#&gt; &lt;environment: 0x00000280bf28a4a8&gt;\n#&gt; Parent: &lt;environment: global&gt;\n#&gt; Bindings:\n#&gt; • y: &lt;dbl&gt;\n#&gt; • a: &lt;lgl&gt;\n#&gt; • b: &lt;chr&gt;\n#&gt; • c: &lt;dbl&gt;\n#&gt; • d: &lt;env&gt;\n#&gt; • e: &lt;dbl&gt;\n\n\n\n3.2.6 高级绑定\n\n3.2.6.1 延迟绑定\ndelayed bindings autoload()允许 R 包提供行为类似于加载内存中的数据集\n延迟绑定会创建 unevaluated promise\n\nShow the codeenv_bind_lazy(current_env(), b =object.size(e1))\nforce(b)\n#&gt; 56 bytes\n\nsystem.time(print(b))\n#&gt; 56 bytes\n#&gt;    user  system elapsed \n#&gt;       0       0       0\n\nsystem.time(print(b))\n#&gt; 56 bytes\n#&gt;    user  system elapsed \n#&gt;       0       0       0\n\n\n\n\n\n\n\n3.2.6.2 动态绑定\nactive bindings 每次访问它们时都会重新计算\n\nShow the codeenv_bind_active(current_env(), z1 = function(val) runif(1))\nz1\n#&gt; [1] 0.2832856\nz1\n#&gt; [1] 0.8915848",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html#在环境中递归",
+    "href": "environments.html#在环境中递归",
+    "title": "\n3  环境\n",
+    "section": "\n3.3 在环境中递归",
+    "text": "3.3 在环境中递归\n\n3.3.1 递归recurse\n\nShow the codef_recur &lt;- function(..., env = caller_env()) {\n  if (identical(env, empty_env())) {\n    # base case\n  } else if (success) {\n    # success case\n  } else {\n    # recursive case\n    f(..., env = env_parent(env))\n  }\n}\n\n\n\nShow the codewhere &lt;- function(name, env = caller_env()) {\n  if (identical(env, empty_env())) {\n    # Base case\n    stop(\"Can't find \", name, call. = FALSE)\n  } else if (env_has(env, name)) {\n    # Success case\n    env\n  } else {\n    # Recursive case\n    where(name, env_parent(env))\n  }\n}\n\n\n\nShow the codee3a &lt;- env(empty_env(), a = 1, b = 2)\ne3b &lt;- env(e3a, x = 10, a = 11)\n\n\n\nShow the codewhere(\"a\", e3b)\n#&gt; &lt;environment: 0x00000280bff16308&gt;\n\nwhere(\"b\", e3b)\n#&gt; &lt;environment: 0x00000280bff71c00&gt;\ne3a\n#&gt; &lt;environment: 0x00000280bff71c00&gt;\n\nwhere(\"c\", e3b)\n#&gt; Error: Can't find c\n\n\n\n\n\n\n\n3.3.2 迭代iteration\n\nShow the codef_iter &lt;- function(..., env = caller_env()) {\n  while (!identical(env, empty_env())) {\n    if (success) {\n      # success case\n      return()\n    }\n    # inspect parent\n    env &lt;- env_parent(env)\n  }\n\n  # base case\n}",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html#特殊环境",
+    "href": "environments.html#特殊环境",
+    "title": "\n3  环境\n",
+    "section": "\n3.4 特殊环境",
+    "text": "3.4 特殊环境\n大多数环境是由 R 创建的\n\n3.4.1 包环境和搜索路径\n\n\n\n\n搜索路径：R_EmptyEnv→pkgs→R_GlobalENV\n\nShow the codebase::search()\n#&gt;  [1] \".GlobalEnv\"         \".conflicts\"         \"package:rlang\"     \n#&gt;  [4] \"package:stats\"      \"package:graphics\"   \"package:grDevices\" \n#&gt;  [7] \"package:utils\"      \"package:datasets\"   \"package:writexl\"   \n#&gt; [10] \"package:readxl\"     \"package:lubridate\"  \"package:forcats\"   \n#&gt; [13] \"package:stringr\"    \"package:dplyr\"      \"package:purrr\"     \n#&gt; [16] \"package:readr\"      \"package:tidyr\"      \"package:tibble\"    \n#&gt; [19] \"package:ggplot2\"    \"package:tidyverse\"  \"package:conflicted\"\n#&gt; [22] \"package:showtext\"   \"package:showtextdb\" \"package:sysfonts\"  \n#&gt; [25] \"package:methods\"    \"Autoloads\"          \"package:base\"\nrlang::search_envs()\n#&gt;  [[1]] $ &lt;env: global&gt;\n#&gt;  [[2]] $ &lt;env: .conflicts&gt;\n#&gt;  [[3]] $ &lt;env: package:rlang&gt;\n#&gt;  [[4]] $ &lt;env: package:stats&gt;\n#&gt;  [[5]] $ &lt;env: package:graphics&gt;\n#&gt;  [[6]] $ &lt;env: package:grDevices&gt;\n#&gt;  [[7]] $ &lt;env: package:utils&gt;\n#&gt;  [[8]] $ &lt;env: package:datasets&gt;\n#&gt;  [[9]] $ &lt;env: package:writexl&gt;\n#&gt; [[10]] $ &lt;env: package:readxl&gt;\n#&gt; [[11]] $ &lt;env: package:lubridate&gt;\n#&gt; [[12]] $ &lt;env: package:forcats&gt;\n#&gt; [[13]] $ &lt;env: package:stringr&gt;\n#&gt; [[14]] $ &lt;env: package:dplyr&gt;\n#&gt; [[15]] $ &lt;env: package:purrr&gt;\n#&gt; [[16]] $ &lt;env: package:readr&gt;\n#&gt; [[17]] $ &lt;env: package:tidyr&gt;\n#&gt; [[18]] $ &lt;env: package:tibble&gt;\n#&gt; [[19]] $ &lt;env: package:ggplot2&gt;\n#&gt; [[20]] $ &lt;env: package:tidyverse&gt;\n#&gt; ... and 7 more environments\n\n\n搜索路径上的最后两个环境始终相同：\n\n环境Autoloads使用延迟绑定来节省内存，仅通过需要时加载包对象（如大型数据集）节省内存 。\n基本环境package:base，是 base package 的环，它能够引导所有其他包的加载。访问base_env()\n\n请注意，当您附加另一个包时，全局环境的父环境会发生变化：\n\n\n\n\n\n3.4.2 命名空间\n命名空间 （namespaces） 的目标是确保以不同的顺序加载包，包将找到相同的功能，并且无论用户附加什么包，每个包的工作方式都相同。\n\nShow the codesd\n#&gt; function (x, na.rm = FALSE) \n#&gt; sqrt(var(if (is.vector(x) || is.factor(x)) x else as.double(x), \n#&gt;     na.rm = na.rm))\n#&gt; &lt;bytecode: 0x00000280b9623028&gt;\n#&gt; &lt;environment: namespace:stats&gt;\n\n\n包中的每个函数都与一对环境相关联：前面的包环境和命名空间环境。\n\n包环境是包的外部接口。\n命名空间环境是包的内部接口。\n\n包环境控制我们如何找到函数；命名空间控制函数查找其变量的方式。\n包环境中的每个绑定也可以在命名空间环境中找到。\n每个命名空间都有一个import环境，import环境的父级是base namespace，base namespace的父级是全局环境。\n\n\n\n\n\n3.4.3 函数环境\n函数在创建时绑定当前环境，称为函数环境，用于词法作用域。在计算机语言中，捕获（或封闭）其环境的函数被称为闭包 closures 。\n访问函数环境\n\nShow the codey &lt;- 1\nf &lt;- function(x) x + y\nfn_env(f)\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\n\n\n\n\n\n\nShow the codee &lt;- env()  # 绑定当前环境为父级\nenv_parent(e)\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\ne$g &lt;- function() 1  # g绑定在e中\n\nenv_print(e)\n#&gt; &lt;environment: 0x00000280c752d9e0&gt;\n#&gt; Parent: &lt;environment: global&gt;\n#&gt; Bindings:\n#&gt; • g: &lt;fn&gt;\n\n\n\n3.4.4 执行环境\n执行环境是函数环境的子级，由函数的创建位置决定。\n\nShow the codeg &lt;- function(x) {\n  if (!env_has(current_env(), \"a\")) {\n    message(\"Defining a\")\n    a &lt;- 1\n  } else {\n    a &lt;- a + 1\n  }\n  a\n}\n\n\n\nShow the code# A fresh start principle\ng(10)\n#&gt; [1] 1\ng(10)\n#&gt; [1] 1\n\n\n每次调用函数时，都会创建一个新环境来托管执行。这称为执行环境（execution environment），其父级是函数环境\n\nShow the codeh &lt;- function(x) {\n  # 1.\n  a &lt;- 2 # 2.\n  x + a\n}\ny &lt;- h(1) # 3.\n\n\n\n\n\n\n\nFigure 3.1\n\n\n执行环境通常是短暂的;函数完成后，环境将被垃圾回收（garbage collected）。",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "environments.html#call-stacks",
+    "href": "environments.html#call-stacks",
+    "title": "\n3  环境\n",
+    "section": "\n3.5 Call stacks",
+    "text": "3.5 Call stacks\ncaller environment\nrlang::caller_env() 提供了调用函数的环境。\n调用栈（call stacks）由 frames 组成。调用栈是由调用函数的位置创建的。\n\nShow the codef &lt;- function(x) {\n  g(x = 2)\n}\ng &lt;- function(x) {\n  h(x = 3)\n}\nh &lt;- function(x) {\n  stop()\n}\n\n\n在 R 中最常查看调用栈的方式是查看错误发生后的情况：traceback()\n\nShow the codef(x = 1)\n#&gt; Error in h(x = 3):\ntraceback()\n#&gt; No traceback available\n\n\n使用 lobstr::cst()从头开始 来理解调用栈, call stack tree Figure 3.2\n\nShow the codeh &lt;- function(x) {\n  lobstr::cst()\n}\nf(x = 1)\n#&gt;     ▆\n#&gt;  1. └─global f(x = 1)\n#&gt;  2.   └─global g(x = 2)\n#&gt;  3.     └─global h(x = 3)\n#&gt;  4.       └─lobstr::cst()\n\n\n\n3.5.1 frames\n调用栈的每个元素都是一个frame，也称为 evaluation context。Frames 是一个极其重要的内部数据结构，R 代码只能访问它的一小部分，因为篡改它会破坏 R。\nframe 有三个关键组件：\n\n给出函数调用的表达式（标有expr ）\n环境（标记为env ）\n父级，调用栈中的上一个调用（由灰色箭头显示）\n\n\n\n\n\n\nFigure 3.2\n\n\n\n3.5.2 Dynamic scope\n在调用栈中而不是在封闭环境中查找变量称为dynamic scoping 。",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>环境</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html",
+    "href": "functions.html",
+    "title": "\n4  函数\n",
+    "section": "",
+    "text": "4.1 函数类型\nR 语言中函数主要有内置函数（builtin） 、 特殊函数（special ）和 闭包函数（closure）三种类型\nShow the codetypeof(sum)    \n#&gt; [1] \"builtin\"\ntypeof(`[`)\n#&gt; [1] \"special\"\ntypeof(`%&gt;%`)\n#&gt; [1] \"closure\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#函数组件",
+    "href": "functions.html#函数组件",
+    "title": "\n4  函数\n",
+    "section": "\n4.2 函数组件",
+    "text": "4.2 函数组件\n\n\nformals() 参数列表\n\nbody() 函数体，包括异常处理、执行程序\n\nenvironment() 确定函数如何查找与名称相关联的值的数据结构，俗称环境\n\n\nShow the codef02 &lt;- function(x, y) {\n  # 注释\n  x + y\n}\n\nformals(f02)\n#&gt; $x\n#&gt; \n#&gt; \n#&gt; $y\nbody(f02)\n#&gt; {\n#&gt;     x + y\n#&gt; }\nenvironment(f02)\n#&gt; &lt;environment: R_GlobalEnv&gt;\n\n\n属性 srcref（source reference ），指向函数的源代码\n\nShow the codeattributes(f02)\n#&gt; NULL",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#sec-Primitive_functions",
+    "href": "functions.html#sec-Primitive_functions",
+    "title": "\n4  函数\n",
+    "section": "\n4.3 原函数",
+    "text": "4.3 原函数\n在R中，原函数（primitive functions） 不具备上述三个组件，而是直接通过.Primitive()调用C语言代码实现。\n\nShow the codeformals(sum)\n#&gt; NULL\nbody(sum)\n#&gt; NULL\nenvironment(sum)\n#&gt; NULL\nattributes(sum)\n#&gt; NULL\n\n\n在R语言中，“Primitive functions”（始函数）是使用C语言实现的核心函数，它们是R的基础并且直接映射到底层操作，从而提供了更高的运行效率。原始函数的类型为builtin或special，并且它们通常不接受延迟求值的参数，而是在调用时立即求值 。\n原函数有内置函数（builtin） 和 特殊函数（special ）两种类型。\n\nShow the codesum\n#&gt; function (..., na.rm = FALSE)  .Primitive(\"sum\")\ntypeof(sum)\n#&gt; [1] \"builtin\"\n.Primitive(\"sum\")\n#&gt; function (..., na.rm = FALSE)  .Primitive(\"sum\")\nget(\"sum\",envir = baseenv())\n#&gt; function (..., na.rm = FALSE)  .Primitive(\"sum\")\n\n`[`\n#&gt; .Primitive(\"[\")\ntypeof(`[`)\n#&gt; [1] \"special\"\n.Primitive(\"[\")\n#&gt; .Primitive(\"[\")",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#first-class-functions",
+    "href": "functions.html#first-class-functions",
+    "title": "\n4  函数\n",
+    "section": "\n4.4 First-class functions",
+    "text": "4.4 First-class functions\n在编程语言中，“First-class functions”（一级函数或函数作为一等公民）是函数式编程的一个核心概念，它意味着函数可以像任何其他类型的数据（如数字、字符串和对象）一样被传递和操作。具体来说，一级函数具有以下几个关键特性：\n\n可赋值：可以给函数分配一个变量。\n可传递：可以作为参数传递给其他函数。\n可返回：可以从其他函数中作为返回值。\n可创建：可以在运行时创建新函数。\n\n这些特性使得一级函数非常灵活，并且允许编程者以声明式的方式构建复杂的逻辑。\nR语言是一种支持函数式编程的语言，它自然地支持一级函数。以下是R语言中一级函数的一些应用示例：\n\n\n将函数赋值给变量：\n\nShow the codef01 &lt;- function(x) {\n  x^2\n}\n\n\n\n\n将函数作为参数传递：\n\nShow the codeapply_func &lt;- function(x, f) {\n  f(x)\n}\nresult &lt;- apply_func(10, f01) # 将函数f01()作为参数传递\n\n\n\n\n从函数中返回函数：\n\nShow the codecreate_multiplier &lt;- function(n) {\n  function(x) {\n    x * n\n  }\n}\n\ndouble &lt;- create_multiplier(2)\nresult &lt;- double(10) # 返回20\n\n\n\n\n匿名函数 anonymous function：\n\nShow the codesapply(c(1,2,3,4,5), function(x) x*2)\n#&gt; [1]  2  4  6  8 10\n\n\n\n\nLambda函数：在较新版本的R中，可以使用~来定义Lambda函数，是一种简洁的匿名函数定义方式。\n\nShow the codemap_dbl(1:5, ~.x * 2)\n#&gt; [1]  2  4  6  8 10\n\n\n\n\n函数的高阶特性：\n\nShow the codemap_values &lt;- function(x, f) {\n  vapply(x, f, FUN.VALUE = double(1))\n}\n\nresult &lt;- map_values(c(1,2,3,4,5), function(x) x ^ 2)\n\n\n在R中，vapply、sapply、lapply、mapply 等函数都是高阶函数的例子，它们可以接受另一个函数作为参数，并对数据集执行操作。\n\n\n\n4.4.1 一级函数的优势：\n\n代码复用：通过将函数作为参数，可以编写更通用、更可重用的代码。\n模块化：一级函数有助于将程序分解为更小、更易于管理的部分。\n抽象：它们允许开发者创建更高级别的抽象，简化复杂逻辑的表达。\n灵活性：一级函数提供了编写灵活和动态代码的能力。\n\n函数式编程和一级函数是现代编程范式的重要组成部分，它们在数据处理和统计计算中尤其有用，这也是R语言作为统计计算语言的一个强大特性。\n\n4.4.2 函数列表\n\nShow the codefuns &lt;- list(\n  half = function(x) x / 2,\n  double = function(x) x * 2\n)\nfuns$double(10)\n#&gt; [1] 20\n\n\n\n4.4.3 函数闭包\n在 R 中，你经常会看到称为 闭包（closure）（内嵌在函数体的函数） 的函数。\n函数是对象，使用创建函数闭包（function closure）时的即存在的状态值进行封装的函数。\n\nShow the codetypeof(ggplot)\n#&gt; [1] \"closure\"",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#函数调用",
+    "href": "functions.html#函数调用",
+    "title": "\n4  函数\n",
+    "section": "\n4.5 函数调用",
+    "text": "4.5 函数调用\n\nShow the codeargs &lt;- list(1:10, na.rm = TRUE)  # 参数列表\ndo.call(mean, args)\n#&gt; [1] 5.5",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#词法作用域",
+    "href": "functions.html#词法作用域",
+    "title": "\n4  函数\n",
+    "section": "\n4.6 词法作用域",
+    "text": "4.6 词法作用域\n词法作用域lexical scoping ，即函数运行中需要使用某个变量时，从其定义时的环境向外层逐层查找，而不是在调用时的环境中查找。这种查找找到变量对应的存储空间后，使用其当前值，而不是历史值，这种规则称为动态查找（dynamic lookup）\n函数的作用域（scope）在R中称为环境。当一个函数被创建后，R 中存在一个让这个函数发挥作用的环境。\n在启动 R 之后，我们就进去了一个全局环境之中（Global Environment），我们创建的各自变量、函数都会处于其中。\n对象可以通过参数传递到函数中，但不会被函数改变。传递的是对象的副本而不是对象本身。除非使用 &lt;&lt;- 特殊赋值符。\n\nShow the codex &lt;- 2\ny &lt;- 3\nz &lt;- 4\nf &lt;- function(w){\n    z &lt;- 2\n    x &lt;- w*y*z\n    return(x)\n}\nf(x)\n#&gt; [1] 12\nx\n#&gt; [1] 2\ny\n#&gt; [1] 3\nz\n#&gt; [1] 4\n\n\nLexical scoping:\n\nName masking\nFunctions versus variables\nA fresh start\nDynamic lookup\n\n\n4.6.1 Name masking\n在函数内部定义的名称会掩盖在函数外部定义的名称。\n\nShow the codex &lt;- 10\ny &lt;- 20\ng02 &lt;- function() {\n  x &lt;- 1\n  y &lt;- 2\n  c(x, y)\n}\ng02()\n#&gt; [1] 1 2\n\n\n如果未在函数中定义名称，则 R 将向上查找。\n\nShow the codex &lt;- 2\ng03 &lt;- function() {\n  y &lt;- 1\n  c(x, y)\n}\ng03()\n#&gt; [1] 2 1\n\ny\n#&gt; [1] 20",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#惰性求值",
+    "href": "functions.html#惰性求值",
+    "title": "\n4  函数\n",
+    "section": "\n4.7 惰性求值",
+    "text": "4.7 惰性求值\nLazy evaluation 是一种将操作延迟到真正需要它的结果时才执行的优化技术。\n惰性求值由称为 promise 或thunk 的数据结构提供支持。\n\n4.7.1 promise\n一个表达式，调用函数的环境，一个值，局部变量作用域求值\n\nShow the codedouble &lt;- function(x) { \n  message(\"Calculating...\")\n  x * 2\n}\n\nh03 &lt;- function(x) {\n  c(x, x)\n}\n\nh03(double(20))\n#&gt; [1] 40 40",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#传递参数",
+    "href": "functions.html#传递参数",
+    "title": "\n4  函数\n",
+    "section": "\n4.8 传递参数",
+    "text": "4.8 传递参数\n关键字传参，位置传参\n\n4.8.1 默认参数\n\nShow the codeh04 &lt;- function(x = 1, y = x * 2, z = a + b) {\n  a &lt;- 10\n  b &lt;- 100\n  \n  c(x, y, z)\n}\nh04()\n#&gt; [1]   1   2 110\n\n# 查看参数的名称和默认值\nargs(h04)\n#&gt; function (x = 1, y = x * 2, z = a + b) \n#&gt; NULL\n\n\n\n4.8.2 缺失参数\n\nShow the codeh06 &lt;- function(x = 10) {\n  list(missing(x), x)\n}\nstr(h06())\n#&gt; List of 2\n#&gt;  $ : logi TRUE\n#&gt;  $ : num 10\n\nstr(h06(10))\n#&gt; List of 2\n#&gt;  $ : logi FALSE\n#&gt;  $ : num 10",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#特殊参数...",
+    "href": "functions.html#特殊参数...",
+    "title": "\n4  函数\n",
+    "section": "\n4.9 特殊参数...\n",
+    "text": "4.9 特殊参数...\n\nvariable arguments，有了它，函数可以接受任意数量的附加参数。还可以将附加参数传递给另一个函数\n\nShow the codeaddAll &lt;- function(x, ...) {\n  args &lt;- list(...)\n  for (a in args) {\n    x &lt;- x + a\n  }\n  return(x)\n}\naddAll(3, 4, 5, 6, 7, 8)\n#&gt; [1] 33\n\n\n使用list() 将传入的 ... 转换为列表，然后再进行处理\n\nShow the codei01 &lt;- function(y, z) {\n  list(y = y, z = z)\n}\n\ni02 &lt;- function(x, ...) {\n  i01(...)\n}\nstr(i02(x = 1, y = 2, z = 3))\n#&gt; List of 2\n#&gt;  $ y: num 2\n#&gt;  $ z: num 3\ni02(x = 1, y = 2, z = 3)\n#&gt; $y\n#&gt; [1] 2\n#&gt; \n#&gt; $z\n#&gt; [1] 3\n\n\n特殊形式 ..N，按位置引用参数，使用 ..1、..2 等直接引用 … 对象中的第 1 个元素、第 2 个元素。\n\nShow the codei03 &lt;- function(...) {\n  list(first = ..1, third = ..3)\n}\nstr(i03(1, 2, 3))\n#&gt; List of 2\n#&gt;  $ first: num 1\n#&gt;  $ third: num 3\n\n\nlist(...)计算参数并将它们存储在列表中\n\nShow the codei04 &lt;- function(...) {\n  list(...)\n}\nstr(i04(a = 1, b = 2))\n#&gt; List of 2\n#&gt;  $ a: num 1\n#&gt;  $ b: num 2",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#退出函数",
+    "href": "functions.html#退出函数",
+    "title": "\n4  函数\n",
+    "section": "\n4.10 退出函数",
+    "text": "4.10 退出函数\n返回一个对象，或者，错误\n\n4.10.1 隐式返回值\n最后计算的表达式是返回值\n\nShow the codej01 &lt;- function(x) {\n  if (x &lt; 10) {\n    0\n  } else {\n    10\n  }\n}\nj01(5)\n#&gt; [1] 0\n\nj01(15)\n#&gt; [1] 10\n\n\n\n4.10.2 显示返回值\n调用return()\n\nShow the codej02 &lt;- function(x) {\n  if (x &lt; 10) {\n    return(0)\n  } else {\n    return(10)\n  }\n}\n\n\n\n4.10.3 不可见值\n大多数函数都以可见方式返回：在交互式上下文中调用函数会自动打印结果\n\nShow the codej03 &lt;- function() 1\nj03()\n#&gt; [1] 1\n\n\n通过应用invisible()于最后一个值来阻止自动打印：\n\nShow the codej04 &lt;- function() invisible(1)\nj04()\n\n\n若要验证此值是否确实存在，可以显式打印它或将其括在括号中,或者使用返回值和可见性标志：withVisible()\n\nShow the codeprint(j04())\n#&gt; [1] 1\n\n\n(j04())\n#&gt; [1] 1\n\nwithVisible(j04())\n#&gt; $value\n#&gt; [1] 1\n#&gt; \n#&gt; $visible\n#&gt; [1] FALSE\n\n\n不可见返回的最常见函数是：&lt;-\n\nShow the codea &lt;- 2\n(a &lt;- 2)\n#&gt; [1] 2\n\na &lt;- b &lt;- c &lt;- d &lt;- 2\n\n\n\n4.10.4 Errors\n如果函数无法完成其分配的任务，则应抛出错误，并立即终止函数的执行。\n\nShow the codej05 &lt;- function() {\n  stop(\"I'm an error\")\n  return(10)\n}\nj05()\n#&gt; Error in j05(): I'm an error\n\n\n\n4.10.5 退出处理程序\n\nShow the codej06 &lt;- function(x) {\n  cat(\"Hello\\n\")\n  on.exit(cat(\"Goodbye!\\n\"), add = TRUE) # 使用  add = TRUE 时始终设置\n  \n  if (x) {\n    return(10)\n  } else {\n    stop(\"Error\")\n  }\n}\n\nj06(TRUE)\n#&gt; Hello\n#&gt; Goodbye!\n#&gt; [1] 10\n\n\nj06(FALSE)\n#&gt; Hello\n#&gt; Error in j06(FALSE): Error",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "functions.html#函数形式",
+    "href": "functions.html#函数形式",
+    "title": "\n4  函数\n",
+    "section": "\n4.11 函数形式",
+    "text": "4.11 函数形式\n\nprefix： foofy(a, b, c)\n\ninfix： x + y\n\nreplacement：names(df) &lt;- c(\"a\", \"b\", \"c\")\n\nspecial：[[, if ,for\n\n\n\nShow the codex &lt;- 2\ny &lt;- 1\nx + y\n#&gt; [1] 3\n`+`(x, y)\n#&gt; [1] 3\n\n\nfor(i in 1:10) print(i)\n#&gt; [1] 1\n#&gt; [1] 2\n#&gt; [1] 3\n#&gt; [1] 4\n#&gt; [1] 5\n#&gt; [1] 6\n#&gt; [1] 7\n#&gt; [1] 8\n#&gt; [1] 9\n#&gt; [1] 10\n`for`(i, 1:10, print(i))\n#&gt; [1] 1\n#&gt; [1] 2\n#&gt; [1] 3\n#&gt; [1] 4\n#&gt; [1] 5\n#&gt; [1] 6\n#&gt; [1] 7\n#&gt; [1] 8\n#&gt; [1] 9\n#&gt; [1] 10\n\n\n\n4.11.1 前缀形式\n是 R 代码中最常见的形式，参数按确切名称匹配，然后与唯一前缀匹配，最后按位置匹配。\n\nShow the codek01 &lt;- function(abcdef, bcde1, bcde2) {\n  list(a = abcdef, b1 = bcde1, b2 = bcde2)\n}\nstr(k01(2, 3, abcdef = 1))\n#&gt; List of 3\n#&gt;  $ a : num 1\n#&gt;  $ b1: num 2\n#&gt;  $ b2: num 3\nstr(k01(2, 3, a = 1))  # 部分匹配\n#&gt; List of 3\n#&gt;  $ a : num 1\n#&gt;  $ b1: num 2\n#&gt;  $ b2: num 3\noptions(warnPartialMatchArgs = TRUE)\nx &lt;- k01(a = 1, 2, 3)\n\n\n\n4.11.2 中缀形式\n\nShow the code`%+%` &lt;- function(a, b) paste0(a, b)\n\"new \" %+% \"string\"\n#&gt; [1] \"new string\"\n\n\n\n4.11.3 替换形式\n\nShow the code`second&lt;-` &lt;- function(x, value) {\n  x[2] &lt;- value\n  x\n}\nx &lt;- 1:10\nsecond(x) &lt;- 5L\nx\n#&gt;  [1]  1  5  3  4  5  6  7  8  9 10\n\n\n\n4.11.4 特殊形式\n所有特殊形式都作为原函数 实现（即在 C 中），这意味着打印这些函数没有信息。\n\nShow the code`for`\n#&gt; .Primitive(\"for\")\nformals(`for`)\n#&gt; NULL",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>函数</span>"
+    ]
+  },
+  {
+    "objectID": "Functional_Programming.html",
+    "href": "Functional_Programming.html",
+    "title": "\n5  函数式编程\n",
+    "section": "",
+    "text": "函数式编程（Functional Programming）：将计算视为数学函数的求值，强调使用纯函数、不可变数据和高阶函数。典型代表语言：Haskell、Clojure、Scala。\n\nShow the codef &lt;- function(x, fun) {\n  fun(x)\n}\n\nf(1:10, sum)\n#&gt; [1] 55\nf(1:10, quantile)\n#&gt;    0%   25%   50%   75%  100% \n#&gt;  1.00  3.25  5.50  7.75 10.00\n\n\n在我们创建的函数 f() 中，我们可以理解为对传入函数的 mean()、sum() 等函数重命名成 fun() 并进行调用。\n\nShow the codef2 &lt;- function(type) {\n  switch(type,\n         mean = mean,\n         sum = sum,\n         quantile = quantile)\n}\nmean\n#&gt; function (x, ...) \n#&gt; UseMethod(\"mean\")\n#&gt; &lt;bytecode: 0x000001b5bd812768&gt;\n#&gt; &lt;environment: namespace:base&gt;\nf2(\"mean\")\n#&gt; function (x, ...) \n#&gt; UseMethod(\"mean\")\n#&gt; &lt;bytecode: 0x000001b5bd812768&gt;\n#&gt; &lt;environment: namespace:base&gt;\n\nf2(\"mean\")(1:10)\n#&gt; [1] 5.5",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>函数式编程</span>"
+    ]
+  },
+  {
+    "objectID": "Generic_Programming.html",
+    "href": "Generic_Programming.html",
+    "title": "6  泛型编程",
+    "section": "",
+    "text": "泛型编程（Generic Programming）是一种编程范式，它通过使用参数化类型（Parameterized Types）和参数化函数（Parameterized Functions）来实现通用的算法和数据结构。泛型编程的核心思想是将算法和数据结构与具体的数据类型解耦合，使得代码能够适用于多种数据类型，提高代码的重用性和可扩展性。典型代表语言：C++、Rust。\n泛型编程的目的是编写可以在不考虑具体数据类型的情况下工作的代码，从而提高代码的复用性和性能。泛型编程通过使用类型参数（或称为模板参数）来实现通用性。类型参数可以在代码中用于定义变量、函数或类，从而使它们能够适用于多种不同的数据类型。通过泛型编程，可以实现在编译时对类型进行检查，提供更好的类型安全性，并避免代码中的类型转换。\nOOP 将data和methods关联在一起\nGP将data和methods分开来",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>泛型编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html",
+    "href": "object_oriented_programming.html",
+    "title": "\n7  面向对象编程\n",
+    "section": "",
+    "text": "7.1 程序设计的范式\n程序设计的范式：",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#程序设计的范式",
+    "href": "object_oriented_programming.html#程序设计的范式",
+    "title": "\n7  面向对象编程\n",
+    "section": "",
+    "text": "面向过程（Procedural Programming）：将问题分解为一系列相互关联的过程或函数，并按照一定的顺序执行这些过程以解决问题。\n基于对象（Object-Based Programming）：基于对象范式强调将数据和操作封装在一起，形成独立的对象。每个对象都拥有属性和方法，通过对象之间的交互来实现功能。也称为基于原型（prototyped-based）\n\n面向对象（Object-Oriented Programming, OOP）：面向对象范式强调将现实世界的事物抽象为对象，通过类（Class）和实例（Instance）来组织和管理代码。\n\n基于泛型函数 OOP： 方法属于泛型函数，函数调用，内部组件也是函数。generic_function(object, arg2, arg3)，如S3类、S4类\n基于原型（prototyped-based）：如 ggproto？\n基于类（class-based） ：方法属于对象或类，对象封装了数据（属性）和 行为（方法）。object.method(arg1, arg2)，如 R6类",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#oop",
+    "href": "object_oriented_programming.html#oop",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.2 OOP",
+    "text": "7.2 OOP\n特点：\n\n\n封装（encapsulation）：是把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。\n\n\n\n继承（inheritance）：子类（child class）自动共享父类（parent class）数据结构和方法的机制，这是类之间的一种关系。在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。通过继承创建的新类称为“子类”或“派生类”；被继承的类称为“基类”、“父类”或“超类”（super class）。\n\n\n\n多态（polymorphism）：由继承而产生的相关的不同的类，其对象对同一消息做出不同的响应。将函数的接口与其实现分开考虑，对不同类型的输入使用相同的函数形式。\n\n\n\nOO 系统\n\n类 （class）定义对象的集合。\n方法（method）描述对象的行为。\n属性（fields） 即该类的每个实例（instance）所拥有的属性\n方法调度（method dispatch） 在给定类的情况下查找正确方法的过程称为方法调度",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#r-中的对象",
+    "href": "object_oriented_programming.html#r-中的对象",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.3 R 中的对象",
+    "text": "7.3 R 中的对象\nR中存在的一切都是一个对象，包括 base objects 和 OO objects 。\n\n\n\n\n\n7.3.1 base objects\nbase 对象来自 S 语言\n\nShow the codeif(!require(sloop)) install.packages(\"sloop\")\n# A base object:\nsloop::otype(`[`)\n#&gt; [1] \"base\"\nis.object(`[`)\n#&gt; [1] FALSE\n\n# An OO object\nsloop::otype(mtcars)\n#&gt; [1] \"S3\"\nis.object(mtcars)\n#&gt; [1] TRUE\nmle_obj &lt;- stats4::mle(function(x = 1) (x - 2) ^ 2)\nsloop::otype(mle_obj)\n#&gt; [1] \"S4\"\n\n\nbase 对象和 OO 对象之间的区别在于 OO 对象具有class属性\n\nShow the codeattr(1:10, \"class\")\n#&gt; NULL\nattr(mtcars, \"class\")\n#&gt; [1] \"data.frame\"\n\n\n虽然只有 OO 对象具有类class属性，但每个对象都具有基本类型（base type）：包括基本数据类型（数值，字符，逻辑，复数等），数据结构 （data.frame，list ），function（闭包、内置、特殊），环境，类，…… 等等。\n\nShow the code# base objects\ntypeof(1:10)\n#&gt; [1] \"integer\"\ntypeof(mtcars)\n#&gt; [1] \"list\"\ntypeof(mean)\n#&gt; [1] \"closure\"\nclass(mean)\n#&gt; [1] \"function\"\ntypeof(`[`)\n#&gt; [1] \"special\"\ntypeof(sum) \n#&gt; [1] \"builtin\"\n\n# OO objects\ntypeof(mle_obj)\n#&gt; [1] \"S4\"\n\ntypeof(globalenv())\n#&gt; [1] \"environment\"\n\n\n\n7.3.2 OO objects：class 属性\n\nS3：是 R 的第一个 OOP 系统，Statistical Models in S\nS4：是对 S3 的正式和严格的重写，Programming with Data，S4 在默认安装(options()$defaultPackages) methods 包中实现。Bioconductor 项目使用的就是S4类。\nR6：构建在环境之上的封装OOP，具有引用语义，modified in-place 而非“修改时复制（copy-on-modify）”，在 R6 包中实现。\nprototype（原型）：模糊类和类（对象）的实例之间的区别，通常指的是一个对象的初始实例，它定义了一组属性和方法，其他对象可以基于这个原型进行创建。例如ggplot2 包的ggproto类",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#封装",
+    "href": "object_oriented_programming.html#封装",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.4 封装",
+    "text": "7.4 封装\n\nShow the code# 定义老师对象和行为\nteacher &lt;- function(x, ...) UseMethod(\"teacher\")\nteacher.lecture &lt;- function(x) print(\"讲课\")\nteacher.assignment &lt;- function(x) print(\"布置作业\")\nteacher.correcting &lt;- function(x) print(\"批改作业\")\nteacher.default&lt;-function(x) print(\"你不是teacher\")\n\n# 定义同学对象和行为\nstudent &lt;- function(x, ...) UseMethod(\"student\")\nstudent.attend &lt;- function(x) print(\"听课\")\nstudent.homework &lt;- function(x) print(\"写作业\")\nstudent.exam &lt;- function(x) print(\"考试\")\nstudent.default&lt;-function(x) print(\"你不是student\")\n\n# 定义两个变量，a老师和b同学\na&lt;-'teacher'\nb&lt;-'student'\n\n# 给老师变量设置行为\nattr(a,'class') &lt;- 'lecture'\n# 执行老师的行为\nteacher(a)\n#&gt; [1] \"讲课\"\n\n# 给同学变量设置行为\nattr(b,'class') &lt;- 'attend'\n# 执行同学的行为\nstudent(b)\n#&gt; [1] \"听课\"\n\n\nattr(a,'class') &lt;- 'assignment'\nteacher(a)\n#&gt; [1] \"布置作业\"\n\n\nattr(b,'class') &lt;- 'homework'\nstudent(b)\n#&gt; [1] \"写作业\"\n\n \nattr(a,'class') &lt;- 'correcting'\nteacher(a)\n#&gt; [1] \"批改作业\"\n \nattr(b,'class') &lt;- 'exam'\nstudent(b)\n#&gt; [1] \"考试\"\n\n\n# 定义一个变量，既是老师又是同学 \nab&lt;-'student_teacher'\n# 分别设置不同对象的行为\nattr(ab,'class') &lt;- c('lecture','homework')\n# 执行老师的行为\nteacher(ab)\n#&gt; [1] \"讲课\"\n\n# 执行同学的行为\nstudent(ab)\n#&gt; [1] \"写作业\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#继承",
+    "href": "object_oriented_programming.html#继承",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.5 继承",
+    "text": "7.5 继承\n\nShow the code# 给同学对象增加新的行为\nstudent.correcting &lt;- function(x) print(\"帮助老师批改作业\")\n\n# 辅助变量用于设置初始值\nchar0 = character(0)\n\n# 实现继承关系\ncreate &lt;- function(classes=char0, parents=char0) {\n     mro &lt;- c(classes)\n     for (name in parents) {\n         mro &lt;- c(mro, name)\n         ancestors &lt;- attr(get(name),'type')\n         mro &lt;- c(mro, ancestors[ancestors != name])\n     }\n     return(mro)\n}\n\n# 定义构造函数，创建对象\nNewInstance &lt;- function(value=0, classes=char0, parents=char0) {\n     obj &lt;- value\n     attr(obj,'type') &lt;- create(classes, parents)\n     attr(obj,'class') &lt;- c('homework','correcting','exam')\n     return(obj)\n }\n\n# 创建父对象实例\nStudentObj &lt;- NewInstance()\n\n# 创建子对象实例\ns1 &lt;- NewInstance('普通同学',classes='normal', parents='StudentObj')\ns2 &lt;- NewInstance('课代表',classes='leader', parents='StudentObj')\n\n# 给课代表，增加批改作业的行为\nattr(s2,'class') &lt;- c(attr(s2,'class'),'correcting')\n\n# 查看普通同学的对象实例\ns1\n#&gt; [1] \"普通同学\"\n#&gt; attr(,\"type\")\n#&gt; [1] \"normal\"     \"StudentObj\"\n#&gt; attr(,\"class\")\n#&gt; [1] \"homework\"   \"correcting\" \"exam\"\nattr(s1,\"type\")\n#&gt; [1] \"normal\"     \"StudentObj\"\n\nattr(s1,\"class\")\n#&gt; [1] \"homework\"   \"correcting\" \"exam\"\n\n\n# 查看课代表的对象实例\ns2\n#&gt; [1] \"课代表\"\n#&gt; attr(,\"type\")\n#&gt; [1] \"leader\"     \"StudentObj\"\n#&gt; attr(,\"class\")\n#&gt; [1] \"homework\"   \"correcting\" \"exam\"       \"correcting\"\nattr(s2,\"type\")\n#&gt; [1] \"leader\"     \"StudentObj\"\nattr(s2,\"class\")\n#&gt; [1] \"homework\"   \"correcting\" \"exam\"       \"correcting\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#多态",
+    "href": "object_oriented_programming.html#多态",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.6 多态",
+    "text": "7.6 多态\n\nShow the code# 创建优等生和次等生，两个实例\ne1 &lt;- NewInstance('优等生',classes='excellent', parents='StudentObj')\ne2 &lt;- NewInstance('次等生',classes='poor', parents='StudentObj')\n\n# 修改同学考试的行为，大于85分结果为优秀，小于70分结果为及格\nstudent.exam &lt;- function(x,score) {\n     p&lt;-\"考试\"\n     if(score&gt;85) print(paste(p,\"优秀\",sep=\"\"))\n     if(score&lt;70) print(paste(p,\"及格\",sep=\"\"))\n}\n\n# 执行优等生的考试行为，并输入分数为90\nattr(e1,'class') &lt;- 'exam'\nstudent(e1,90)\n#&gt; [1] \"考试优秀\"\n\n\n# 执行次等生的考试行为，并输入分数为66\nattr(e2,'class') &lt;- 'exam'\nstudent(e2,66)\n#&gt; [1] \"考试及格\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#s3类",
+    "href": "object_oriented_programming.html#s3类",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.7 S3类",
+    "text": "7.7 S3类\n构造S3类的三原则\n\n命名 new_class_name()\nbase object 有一个参数，每个属性有一个参数。\n检查base object的类型和每个属性的类型\n\nhttp://blog.fens.me/r-class-s3/\nS3 对象是至少具有一个属性（其他属性可用于存储其他数据）的base type( 有mode属性)。\n\nShow the codef &lt;- factor(c(\"a\", \"b\", \"c\"))\n\n# 基本类型\ntypeof(f)\n#&gt; [1] \"integer\"\n\n# 其他属性\nattributes(f)\n#&gt; $levels\n#&gt; [1] \"a\" \"b\" \"c\"\n#&gt; \n#&gt; $class\n#&gt; [1] \"factor\"\n\n\n剥离类属性，保留其他属性\n\nShow the codeunclass(f)\n#&gt; [1] 1 2 3\n#&gt; attr(,\"levels\")\n#&gt; [1] \"a\" \"b\" \"c\"\n\n\n查看方法调度，generic.class()\n\nShow the codelibrary(sloop)\ns3_dispatch(print(f))\n#&gt; =&gt; print.factor\n#&gt;  * print.default\n\n\n\n7.7.1 创建S3类和实例\n要使对象成为S3 类的实例，您只需设置类属性即可。\n\nShow the codex &lt;- structure(list(), class = \"custom_class\")\n\n# 或者\nx &lt;- list()\nclass(x) &lt;- \"custom_class\"\n\n\n\nShow the codeclass(x)\n#&gt; [1] \"custom_class\"\n\ninherits(x, \"custom_class\")\n#&gt; [1] TRUE\n\n\nDate 类\n\nShow the codenew_Date &lt;- function(x = double()) {\n  stopifnot(is.double(x))\n  structure(x, class = \"Date\")\n}\nnew_Date(c(-1, 0, 1))\n#&gt; [1] \"1969-12-31\" \"1970-01-01\" \"1970-01-02\"\n\n\ndifftime 类\n\nShow the codenew_difftime &lt;- function(x = double(), units = \"secs\") {\n  stopifnot(is.double(x))\n  units &lt;- match.arg(units, c(\"secs\", \"mins\", \"hours\", \"days\", \"weeks\"))\n\n  structure(x,\n    class = \"difftime\",\n    units = units\n  )\n}\nnew_difftime(52, \"weeks\")\n#&gt; Time difference of 52 weeks\n\n\n有效性验证\n\nShow the codenew_factor &lt;- function(x = integer(), levels = character()) {\n  stopifnot(is.integer(x))\n  stopifnot(is.character(levels))\n\n  structure(\n    x,\n    levels = levels,\n    class = \"factor\"\n  )\n}\n\nnew_factor(1:5, \"a\")\n#&gt; Error in as.character.factor(x): malformed factor\nnew_factor(0:1, \"a\")\n#&gt; Error in as.character.factor(x): malformed factor\n\n\n\nShow the codevalidate_factor &lt;- function(x) {\n  values &lt;- unclass(x)\n  levels &lt;- attr(x, \"levels\")\n\n  if (!all(!is.na(values) & values &gt; 0)) {\n    stop(\n      \"All `x` values must be non-missing and greater than zero\",\n      call. = FALSE\n    )\n  }\n\n  if (length(levels) &lt; max(values)) {\n    stop(\n      \"There must be at least as many `levels` as possible values in `x`\",\n      call. = FALSE\n    )\n  }\n\n  x\n}\nvalidate_factor(new_factor(1:5, \"a\"))\n#&gt; Error: There must be at least as many `levels` as possible values in `x`\nvalidate_factor(new_factor(0:1, \"a\"))\n#&gt; Error: All `x` values must be non-missing and greater than zero\n\n\n如果希望用户从类中构造对象，还应该提供一个帮助程序方法\n\n强制类型转换\n\n\nShow the codedifftime &lt;- function(x = double(), units = \"secs\") {\n  x &lt;- as.double(x)\n  new_difftime(x, units = units)\n}\n\ndifftime(1:10)\n#&gt; Time differences in secs\n#&gt;  [1]  1  2  3  4  5  6  7  8  9 10\n\n\n\n复杂对象字符串表示\n\n\nShow the codefactor &lt;- function(x = character(), levels = unique(x)) {\n  ind &lt;- match(x, levels)\n  validate_factor(new_factor(ind, levels))\n}\n\nfactor(c(\"a\", \"a\", \"b\"))\n#&gt; [1] a a b\n#&gt; Levels: a b\n\n\n\n复杂对象由多个简单组件指定\n\n\nShow the codePOSIXct &lt;- function(year = integer(), \n                    month = integer(), \n                    day = integer(), \n                    hour = 0L, \n                    minute = 0L, \n                    sec = 0, \n                    tzone = \"\") {\n  ISOdatetime(year, month, day, hour, minute, sec, tz = tzone)\n}\n\nPOSIXct(2020, 1, 1, tzone = \"Asia/Shanghai\")\n#&gt; [1] \"2020-01-01 CST\"\n\n\n\n7.7.2 泛型函数和方法调度\n泛型函数（generic function）\n\nShow the codemy_new_generic &lt;- function(x) {\n  UseMethod(\"my_new_generic\")\n}\n\n\n\nShow the codelibrary(\"sloop\")\nx &lt;- matrix(1:10, nrow = 2)\ns3_dispatch(mean(x))\n#&gt;    mean.matrix\n#&gt;    mean.integer\n#&gt;    mean.numeric\n#&gt; =&gt; mean.default\n\n\n=&gt;指示调用的方法\n*指示此处已定义但未调用的方法，“default”类是一个特殊的伪类。这不是一个真正的类，但包含它是为了可以定义一个标准回退，每当特定于类的方法不可用时，就会找到该回退。\n\nShow the codemean\n#&gt; function (x, ...) \n#&gt; UseMethod(\"mean\")\n#&gt; &lt;bytecode: 0x00000285b2f8e768&gt;\n#&gt; &lt;environment: namespace:base&gt;\ns3_methods_generic(\"mean\")\n#&gt; # A tibble: 7 × 4\n#&gt;   generic class      visible source             \n#&gt;   &lt;chr&gt;   &lt;chr&gt;      &lt;lgl&gt;   &lt;chr&gt;              \n#&gt; 1 mean    Date       TRUE    base               \n#&gt; 2 mean    default    TRUE    base               \n#&gt; 3 mean    difftime   TRUE    base               \n#&gt; 4 mean    POSIXct    TRUE    base               \n#&gt; 5 mean    POSIXlt    TRUE    base               \n#&gt; 6 mean    quosure    FALSE   registered S3method\n#&gt; 7 mean    vctrs_vctr FALSE   registered S3method\ns3_methods_class(\"ordered\")\n#&gt; # A tibble: 6 × 4\n#&gt;   generic       class   visible source             \n#&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;lgl&gt;   &lt;chr&gt;              \n#&gt; 1 as.data.frame ordered TRUE    base               \n#&gt; 2 Ops           ordered TRUE    base               \n#&gt; 3 relevel       ordered FALSE   registered S3method\n#&gt; 4 scale_type    ordered FALSE   registered S3method\n#&gt; 5 Summary       ordered TRUE    base               \n#&gt; 6 type_sum      ordered FALSE   registered S3method\n\n\n\n7.7.3 示例\n\nShow the code# S3 方法示例\ngeneric_function &lt;- function(x, y) {\n  UseMethod(\"generic_function\")\n}\n\n# 为numeric类定义方法\ngeneric_function.numeric &lt;- function(x, y) {\n  print(x + y)\n}\n\n# 为character类定义方法\ngeneric_function.character &lt;- function(x, y, sep = \" \" ) {\n  print(paste(x, y, sep = sep))\n}\n\n# 调用函数\ngeneric_function(1, 2)  # 输出 3\n#&gt; [1] 3\ngeneric_function(\"Hello\", \"World\")  # 输出 \"HelloWorld\"\n#&gt; [1] \"Hello World\"\n\n\n# + 多态 示例\n`+` &lt;- function(x, y) {\n  UseMethod(\"+\")\n}\n\n# 为character类定义方法\n`+.character`&lt;- function(x, y) {\n  print(paste0(x, y))\n}\n\n\"a\"+\"b\"+\"c\"\n#&gt; [1] \"ab\"\n#&gt; [1] \"abc\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#s4类",
+    "href": "object_oriented_programming.html#s4类",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.8 S4类",
+    "text": "7.8 S4类\n创建类 setClass() ，创建泛型函数 setGeneric() ，创建方法 setMethod()\nhttp://blog.fens.me/r-class-s4/\n此外，S4 提供多重继承（即一个类可以有多个父级）和多重调度（即方法调度可以使用多个参数的类）\nS4 的一个重要新组件是 slot，它是对象的命名组件，使用专用子集运算符 @（发音为 at）进行访问。 accessor functions @\nbioconductor S4类和方法\n\nShow the codelibrary(methods)\n\n\n\n7.8.1 创建类、实例化、泛型函数和方法\n\nShow the codesetClass(\n    #类名\n    \"Person\",\n    \n    # 名称和类的命名字符向量\n    slots = c(name = \"character\", age = \"numeric\"),\n    \n    # 默认值列表\n    prototype = list(name = NA_character_, age = NA_real_)\n)\n\n# 实例化\nx &lt;- new(\"Person\", name = \"XXX\",age=24)\n\nstr(x)\n#&gt; Formal class 'Person' [package \".GlobalEnv\"] with 2 slots\n#&gt;   ..@ name: chr \"XXX\"\n#&gt;   ..@ age : num 24\n\nx@name\n#&gt; [1] \"XXX\"\nslot(x,\"age\")\n#&gt; [1] 24\n\n\n# 泛型函数 ： 定义\n\nsetGeneric(\"age\", function(x) standardGeneric(\"age\"))\n#&gt; [1] \"age\"\nsetGeneric(\"age&lt;-\", function(x, value) standardGeneric(\"age&lt;-\"))\n#&gt; [1] \"age&lt;-\"\n\nsetGeneric(\"name\", function(x) standardGeneric(\"name\"))\n#&gt; [1] \"name\"\nsetGeneric(\"name&lt;-\", function(x, value) standardGeneric(\"name&lt;-\"))\n#&gt; [1] \"name&lt;-\"\n\n# 方法 ： 实现\nsetMethod(\"age\", \"Person\", function(x) x@age)\nsetMethod(\"age&lt;-\", \"Person\", function(x, value) {\n  x@age &lt;- value\n  x\n})\nage(x)\n#&gt; [1] 24\nage(x) &lt;- 13\nage(x)\n#&gt; [1] 13\n\nsetMethod(\"show\", \"Person\", function(object) {\n  cat(is(object)[[1]], \"\\n\",\n      \"  Name: \", object@name, \"\\n\",\n      \"  Age:  \", object@age, \"\\n\",\n      sep = \"\"\n  )\n})\nsloop::otype(x)\n#&gt; [1] \"S4\"\nsloop::ftype(age)\n#&gt; [1] \"S4\"      \"generic\"\n\nx\n#&gt; Person\n#&gt;   Name: XXX\n#&gt;   Age:  13\n\n\nsetMethod(\"name\", \"Person\", function(x) x@name)\nname(x)\n#&gt; [1] \"XXX\"\n\nsetMethod(\"name&lt;-\", \"Person\", function(x, value) {\n  x@name &lt;- value\n  validObject(x)\n  x\n})\nname(x) &lt;- \"Lily\"\nname(x)\n#&gt; [1] \"Lily\"\n\n\n\n7.8.2 继承\n\nShow the codesetClass(\"Employee\", \n  contains = \"Person\", \n  slots = c(\n    boss = \"Person\"\n  ),\n  prototype = list(\n    boss = new(\"Person\")\n  )\n)\n\nstr(new(\"Employee\"))\n#&gt; Formal class 'Employee' [package \".GlobalEnv\"] with 3 slots\n#&gt;   ..@ boss:Formal class 'Person' [package \".GlobalEnv\"] with 2 slots\n#&gt;   .. .. ..@ name: chr NA\n#&gt;   .. .. ..@ age : num NA\n#&gt;   ..@ name: chr NA\n#&gt;   ..@ age : num NA\n\n\n\nShow the codeis(x, \"Person\")\n#&gt; [1] TRUE\nis(new(\"Person\"))\n#&gt; [1] \"Person\"\nis(new(\"Employee\"))\n#&gt; [1] \"Employee\" \"Person\"\n\n\n\n7.8.3 多重继承和多重调度\n。。。",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#原型类",
+    "href": "object_oriented_programming.html#原型类",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.9 原型类",
+    "text": "7.9 原型类\nOOP风格又分为两种风格：一种是基于对象的编程（Object-Based Programming），也称原型编程（Prototype Programming）；另一种是基于类的编程（Class-Based Programming）。proto工具包采用的是前者。因为没有“类”的概念，原型编程可以更自由地定义对象。\nlibrary(proto)\nproto对象的元素分为两类：一类称为属性（field），在R中就是变量（variable），如oo中的x；另一类称为方法（method），在R中就是函数（function）\n\n7.9.1 ggproto\n参考 ggplot2-book.org/internals#sec-ggproto\n\nShow the codeNewObject &lt;- ggproto(\n  `_class` = NULL, \n  `_inherits` = NULL\n)\nNewObject \n#&gt; &lt;ggproto object: Class gg&gt;\n#&gt;     _inherits: NULL\n\n\n\nShow the code# 新类\nNewClass &lt;- ggproto(\"NewClass\", NULL,\n                    # fields     默认值 \n                    geom=NA,\n                    # methods\n                    \n                    )\nNewClass\n#&gt; &lt;ggproto object: Class NewClass, gg&gt;\n#&gt;     geom: NA\n\n\n\nShow the code# 实例\ninstance &lt;- ggproto(NULL, NewClass,\n                    # 字段赋值\n                    geom=\"point\"\n                    )\ninstance\n#&gt; &lt;ggproto object: Class NewClass, gg&gt;\n#&gt;     geom: point\n#&gt;     super:  &lt;ggproto object: Class NewClass, gg&gt;\n\n\n\nShow the code# 继承\nNewSubClass &lt;- ggproto(\"NewSubClass\", NewClass)\nNewSubClass\n#&gt; &lt;ggproto object: Class NewSubClass, NewClass, gg&gt;\n#&gt;     geom: NA\n#&gt;     super:  &lt;ggproto object: Class NewClass, gg&gt;",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "object_oriented_programming.html#r6-类",
+    "href": "object_oriented_programming.html#r6-类",
+    "title": "\n7  面向对象编程\n",
+    "section": "\n7.10 R6 类",
+    "text": "7.10 R6 类\nR6::R6Class(classname = NULL，public = list)\nhttp://blog.fens.me/r-class-r6/\n\n\n\n\n\nShow the codelibrary(R6)\nlibrary(R6)\n\nBook &lt;- R6Class(\n    \"Book\",\n    # 定义私有变量\n    private = list(\n        title = NA,\n        price = NA,\n        category = NA\n    ),\n    # 定义公共方法\n    public = list(\n        initialize = function(title, price, category) {\n            private$title &lt;- title\n            private$price &lt;- price\n            private$category &lt;- category\n        },\n        getPrice = function() {\n            private$price\n        }\n    )\n)\n\nBook\n#&gt; &lt;Book&gt; object generator\n#&gt;   Public:\n#&gt;     initialize: function (title, price, category) \n#&gt;     getPrice: function () \n#&gt;     clone: function (deep = FALSE) \n#&gt;   Private:\n#&gt;     title: NA\n#&gt;     price: NA\n#&gt;     category: NA\n#&gt;   Parent env: &lt;environment: R_GlobalEnv&gt;\n#&gt;   Locked objects: TRUE\n#&gt;   Locked class: FALSE\n#&gt;   Portable: TRUE\nR &lt;- R6Class(\"R\", # 子类R图书\n             inherit = Book)\nJava &lt;- R6Class(\"JAVA\", # 子类JAVA图书\n                inherit = Book)\nPhp &lt;- R6Class(\"PHP\", # 子类PHP图书\n               inherit = Book)\n\n\n\nShow the coder1&lt;-R$new(\"R的极客理想-工具篇\",59,\"R\")\nr1$getPrice()\n#&gt; [1] 59\n\nj1&lt;-Java$new(\"Java编程思想\",108,\"JAVA\")\n\n j1$getPrice()\n#&gt; [1] 108\n \n p1&lt;-Java$new(\"Head First PHP & MySQL\",98,\"PHP\")\n p1$getPrice()\n#&gt; [1] 98\n\n\n\nShow the codeBook &lt;- R6Class(\n    \"Book\",\n    private = list(\n        title = NA,\n        price = NA,\n        category = NA\n    ),\n    public = list(\n        initialize = function(title, price, category) {\n            private$title &lt;- title\n            private$price &lt;- price\n            private$category &lt;- category\n        },\n        getPrice = function() {\n            p &lt;- private$price * self$discount()\n            print(paste(\"Price:\", private$price, \", Sell out:\", p, sep = \"\"))\n        },\n        discount = function() {\n            0.9\n        }\n    )\n)\n\n\n\nShow the code# 继承\nJava &lt;- R6Class(\"JAVA\",\n                inherit = Book,\n                public = list(\n                    discount = function() {\n                        0.7\n                    }\n                ))\n\nR &lt;- R6Class(\"R\",\n             inherit = Book,\n             public = list(\n                 discount = function() {\n                     super$discount() * 0.7\n                 }\n             ))\n\nPhp &lt;- R6Class(\"PHP\", inherit = Book)\n\n\n\nShow the coder1&lt;-R$new(\"R的极客理想-工具篇\",59,\"R\")\nr1$getPrice()\n#&gt; [1] \"Price:59, Sell out:37.17\"\n\nj1&lt;-Java$new(\"Java编程思想\",108,\"JAVA\")\n\n j1$getPrice()\n#&gt; [1] \"Price:108, Sell out:75.6\"\n \n p1&lt;-Java$new(\"Head First PHP & MySQL\",98,\"PHP\")\n p1$getPrice()\n#&gt; [1] \"Price:98, Sell out:68.6\"",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>面向对象编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html",
+    "href": "meta_programming.html",
+    "title": "\n8  元编程\n",
+    "section": "",
+    "text": "8.1 表达式\n元编程（meta programming）是一种认为代码是可以通过编程检查和修改的数据（R代码可以描述为树，abstract syntax tree）的概念。例如，在最基本的层面，它允许你 library(purrr) 而无需library(\"purrr\")；在更深层次，允许使用表达式y ~ x1 + x2代表一个模型，等等。\n与元编程紧密相关的是非标准求值（non-standard evaluations，NSE），不遵循通常的求值规则，而是捕获键入的表达式并以自定义的方式对其进行求值。\n整洁求值( tidy evaluation)\nconstant scalars, symbols, call objects, and pairlists",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#表达式",
+    "href": "meta_programming.html#表达式",
+    "title": "\n8  元编程\n",
+    "section": "",
+    "text": "8.1.1 常量\n数值型，字符型，逻辑型\n\nShow the code# constant\nnum &lt;- expr(123)\nstring &lt;- expr(\"Variable\")\n\nclass(num)\n#&gt; [1] \"numeric\"\nclass(string)\n#&gt; [1] \"character\"\nexpr(TRUE) %&gt;% class()\n#&gt; [1] \"logical\"\n\n\n\n8.1.2 符号\nsymbol表示对象的名称（name）\n\nShow the code# 字符串转换名称\nexpr(x) == rlang::sym(\"x\")\n#&gt; [1] TRUE\n\nchar &lt;- \"Variable\"\n# symbol  name\nsbl &lt;- sym(char)\nsbl\n#&gt; Variable\n\nclass(sbl)\n#&gt; [1] \"name\"\nsbl |&gt; as_string()\n#&gt; [1] \"Variable\"\n\n# 字符串与符号\n\nas_string(expr(x))\n#&gt; [1] \"x\"\nstr(expr(x))\n#&gt;  symbol x\nis.symbol(expr(x))\n#&gt; [1] TRUE\n\n\n符号的长度始终为1，多个符号使用rlang::syms()\n\n8.1.3 调用\n\nShow the code# call\n\ncall2(\"mean\", x = expr(x), na.rm = TRUE)\n#&gt; mean(x = x, na.rm = TRUE)\ncall2(expr(base::mean), x = expr(x), na.rm = TRUE)\n#&gt; base::mean(x = x, na.rm = TRUE)\ncall2(\"&lt;-\", expr(x), 10)\n#&gt; x &lt;- 10\n\ncall &lt;- call2(\"+\", 1, call2(\"*\", 2, 3))\n\ncall\n#&gt; 1 + 2 * 3\n\nclass(call)\n#&gt; [1] \"call\"\n\n\n调用对象是一种特殊类型的列表，其中第一个组件指定要调用的函数名称（通常为符号），其余元素是该函数调用的参数。\n\nShow the codelobstr::ast(read.table(file = \"important.csv\", row.names = FALSE))\n#&gt; █─read.table \n#&gt; ├─file = \"important.csv\" \n#&gt; └─row.names = FALSE\n\nx &lt;- expr(read.table(file = \"important.csv\", row.names = FALSE))\n\nx\n#&gt; read.table(file = \"important.csv\", row.names = FALSE)\n\ntypeof(x)\n#&gt; [1] \"language\"\n\n\n\nShow the codex[[1]]\n#&gt; read.table\nis.symbol(x[[1]])\n#&gt; [1] TRUE\nas.list(x[-1])\n#&gt; $file\n#&gt; [1] \"important.csv\"\n#&gt; \n#&gt; $row.names\n#&gt; [1] FALSE\nx$header &lt;- TRUE\nx\n#&gt; read.table(file = \"important.csv\", row.names = FALSE, header = TRUE)\n\n\n由于 R 灵活的参数匹配规则，从调用中提取特定参数具有挑战性：它可能位于任何位置，具有全名、缩写名称或无名称。若要解决此问题，可以使用 rlang::call_standardise()标准化所有参数来使用全名。\n\nShow the coderlang::call_standardise(x)\n#&gt; read.table(file = \"important.csv\", header = TRUE, row.names = FALSE)\n\n\n\n8.1.3.1 函数位置\n\nShow the codelobstr::ast(\"foo\"())\n#&gt; █─foo\nlobstr::ast(foo())\n#&gt; █─foo\nlobstr::ast(pkg::foo(1))\n#&gt; █─█─`::` \n#&gt; │ ├─pkg \n#&gt; │ └─foo \n#&gt; └─1\nlobstr::ast(foo(1)(2))\n#&gt; █─█─foo \n#&gt; │ └─1 \n#&gt; └─2\n\n\n\n8.1.4 配对列表\n\nShow the codef &lt;- expr(function(x, y = 10) x + y)\n\nargs &lt;- f[[2]]\nargs\n#&gt; $x\n#&gt; \n#&gt; \n#&gt; $y\n#&gt; [1] 10\ntypeof(args)\n#&gt; [1] \"pairlist\"\npl &lt;- pairlist(x = 1, y = 2)\nlength(pl)\n#&gt; [1] 2\npl$x\n#&gt; [1] 1\n\n\n\n8.1.5 缺失参数\n空符号，empty symbol，表示缺失的参数\n\nShow the codemissing_arg()\ntypeof(missing_arg())\nis_missing(missing_arg())\n\n\n\n8.1.6 ...\n\n\nShow the codeg &lt;- expr(function(...) list(...))\ng\n#&gt; function(...) list(...)\nargs &lt;- g[[2]]\nargs \n#&gt; $...\nis_missing(args[[1]])\n#&gt; [1] TRUE\n\n\n\n8.1.7 表达式向量\n\nShow the codeexp1 &lt;- parse(text = c(\"\nx &lt;- 4\nx\n\"))\nexp2 &lt;- expression(x &lt;- 4, x)\n\ntypeof(exp1)\n#&gt; [1] \"expression\"\ntypeof(exp2)\n#&gt; [1] \"expression\"\n\nexp1\n#&gt; expression(x &lt;- 4, x)\nexp2\n#&gt; expression(x &lt;- 4, x)\n\n\n表达式向量的行为也类似于列表\n\nShow the codeexp1[[1]]\n#&gt; x &lt;- 4",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#解析表达式",
+    "href": "meta_programming.html#解析表达式",
+    "title": "\n8  元编程\n",
+    "section": "\n8.2 解析表达式",
+    "text": "8.2 解析表达式\n\nShow the code# 字符串\nx1 &lt;- \"y &lt;- x + 10\"\nx1\n#&gt; [1] \"y &lt;- x + 10\"\nis.call(x1)\n#&gt; [1] FALSE\n\n\nas.formula(\"y~ x1+x2\")\n#&gt; y ~ x1 + x2\n\n# 表达式\nx2 &lt;- rlang::parse_expr(x1)\nx2\n#&gt; y &lt;- x + 10\nis.call(x2)\n#&gt; [1] TRUE",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#捕获代码结构-expression",
+    "href": "meta_programming.html#捕获代码结构-expression",
+    "title": "\n8  元编程\n",
+    "section": "\n8.3 捕获代码结构 expression\n",
+    "text": "8.3 捕获代码结构 expression\n\n表达式 （expression ）指 捕获的代码结构 ，包括四种类型（调用call、符号symbol、常量constant或配对列表pairlist）。\n\n8.3.1 expr() 和 enexpr()\n\n\nShow the coderlang::expr(mean(x, na.rm = TRUE))\n#&gt; mean(x, na.rm = TRUE)\n\n\n\nShow the codecapture_it &lt;- function(x) {\n  expr(x)\n}\ncapture_it(a + b + c)\n#&gt; x\n\n\n捕获用户输入的函数参数\n\nShow the codecapture_it &lt;- function(x) {\n  enexpr(x)\n}\n\ncapture_it(mtcars$mpg)\n#&gt; mtcars$mpg\n\n\n\n8.3.2 增删改操作\n捕获表达式后，可以检查和修改它，方法与列表类似。\n捕获的表达式分为两个部分\n\n第一个元素为函数调用call\n其他部分为位置参数或嵌套调用\n\n\nShow the codef &lt;- expr(fn &lt;- anystrings(x = 1, y = 2))\nexpr(`&lt;-`(fn,anystrings(x = 1, y = 2)))\n#&gt; fn &lt;- anystrings(x = 1, y = 2)\nf[[1]]\n#&gt; `&lt;-`\nf[[2]]\n#&gt; fn\nf[[3]]\n#&gt; anystrings(x = 1, y = 2)\n\n\nf[[3]][[1]]\n#&gt; anystrings\nf[[3]]$x\n#&gt; [1] 1\nf[[3]]$z &lt;- 3\nf\n#&gt; fn &lt;- anystrings(x = 1, y = 2, z = 3)\n\n\nf[[3]][[2]] &lt;- NULL\nf\n#&gt; fn &lt;- anystrings(y = 2, z = 3)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#执行表达式",
+    "href": "meta_programming.html#执行表达式",
+    "title": "\n8  元编程\n",
+    "section": "\n8.4 执行表达式",
+    "text": "8.4 执行表达式\n将代码的结构描述expression和执行evaluate分开。\n\nShow the codez &lt;- rlang::expr(y &lt;- x * 10)\nz\n#&gt; y &lt;- x * 10\nx &lt;- 8\neval(z)\ny\n#&gt; [1] 80\n\n\n\nShow the codebase::eval(expr(x + y), env(x = 1, y = 10))\n#&gt; [1] 11\n\n\n如果省略环境，将使用当前环境\n\nShow the codex &lt;- 10\ny &lt;- 100\neval(expr(x + y))\n#&gt; [1] 110",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#函数自定义求值",
+    "href": "meta_programming.html#函数自定义求值",
+    "title": "\n8  元编程\n",
+    "section": "\n8.5 函数自定义求值",
+    "text": "8.5 函数自定义求值\nRebinding functions，改变函数内部的变量绑定\n\nShow the code\n# 字符串的加法和乘法 多态\nstring_math &lt;- function(x) {\n  e &lt;- env(\n    caller_env(),\n    `+` = function(x, y) paste0(x, y),\n    `*` = function(x, y) strrep(x, y)\n  )\n\n  eval(enexpr(x), e)\n}\n\nname &lt;- \"Hadley\"\nstring_math(\"Hello \" + name)\n#&gt; [1] \"Hello Hadley\"\nstring_math((\"x\" * 2 + \"-y\") * 3)\n#&gt; [1] \"xx-yxx-yxx-y\"\n\n\ndplyr将这个想法发挥到了极致，在生成 SQL 以在远程数据库中执行的环境中运行代码：\n\nShow the codelibrary(dplyr)\ncon &lt;- DBI::dbConnect(RSQLite::SQLite(), filename = \":memory:\")\nmtcars_db &lt;- copy_to(con, mtcars)\n\nmtcars_db %&gt;%\n  filter(cyl &gt; 2) %&gt;%\n  select(mpg:hp) %&gt;%\n  head(10) %&gt;%\n  show_query()\n#&gt; &lt;SQL&gt;\n#&gt; SELECT `mpg`, `cyl`, `disp`, `hp`\n#&gt; FROM `mtcars`\n#&gt; WHERE (`cyl` &gt; 2.0)\n#&gt; LIMIT 10\n\nDBI::dbDisconnect(con)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#数据自定义求值",
+    "href": "meta_programming.html#数据自定义求值",
+    "title": "\n8  元编程\n",
+    "section": "\n8.6 数据自定义求值",
+    "text": "8.6 数据自定义求值\n在数据处理和分析中，“data masking”（数据掩蔽）是一种技术，用于隐藏或保护敏感信息，同时保留数据集中的模式和结构，以供分析使用。\n\n替换：将敏感数据替换为假数据或占位符。\n加密：对数据进行加密处理，只有拥有密钥的人才能访问原始数据。\n扰动：对数据进行小的随机变化，以保护数据的统计特性，同时避免识别出原始数据。\n\n使用数据掩码进行求值是交互式分析的有用技术，因为它允许您编写 x + y而不是df$x + df$y .然而，这种便利是有代价的：模棱两可\n\nShow the codeset.seed(10)\ndf &lt;- data.frame(x = 1:5, y = sample(5))\n\ndf\n#&gt;   x y\n#&gt; 1 1 3\n#&gt; 2 2 1\n#&gt; 3 3 2\n#&gt; 4 4 5\n#&gt; 5 5 4\neval_tidy(expr(x + y), df)\n#&gt; [1] 4 3 5 9 9\n\n\nbase::with\n\nShow the codewith2 &lt;- function(df, expr) {\n  eval_tidy(enexpr(expr), df)\n}\n\nwith2(df, x + y)\n#&gt; [1] 4 3 5 9 9",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#抽象语法树",
+    "href": "meta_programming.html#抽象语法树",
+    "title": "\n8  元编程\n",
+    "section": "\n8.7 抽象语法树",
+    "text": "8.7 抽象语法树\n表达式（expressions） 也称为抽象语法树（ abstract syntax trees ，ASTs）。\n\n8.7.1 树结构\n\n实际运行代码，橙色矩形是分支，紫色符号是函数调用，白色是函数参数\n渲染成书后，灰色矩形是分支，右连函数调用，下连子项参数或函数\n\n\nShow the codelibrary(rlang)\nlibrary(lobstr)\nlobstr::ast(f(g(1, 2), h(3, 4, i())))\n#&gt; █─f \n#&gt; ├─█─g \n#&gt; │ ├─1 \n#&gt; │ └─2 \n#&gt; └─█─h \n#&gt;   ├─3 \n#&gt;   ├─4 \n#&gt;   └─█─i\n\n\n\n8.7.2 空格和注释\n\nShow the codeast(\n  f(x,  y)  # important!\n)\n#&gt; █─f \n#&gt; ├─x \n#&gt; └─y\n\nlobstr::ast(y &lt;-  x)\n#&gt; █─`&lt;-` \n#&gt; ├─y \n#&gt; └─x\n\nlobstr::ast(y &lt; -x)\n#&gt; █─`&lt;` \n#&gt; ├─y \n#&gt; └─█─`-` \n#&gt;   └─x\n\n\n\n8.7.3 中缀调用\n\nShow the codex &lt;- 4\n`&lt;-`(y,x)\n`&lt;-`(y, `*`(x, 10))\nexpr(`&lt;-`(y, `*`(x, 10)))\n#&gt; y &lt;- x * 10\nlobstr::ast(y &lt;- x * 10)\n#&gt; █─`&lt;-` \n#&gt; ├─y \n#&gt; └─█─`*` \n#&gt;   ├─x \n#&gt;   └─10\n\n\n\nShow the codex3 &lt;- \"a &lt;- 1; a + 1\"\nrlang::parse_exprs(x3)\n#&gt; [[1]]\n#&gt; a &lt;- 1\n#&gt; \n#&gt; [[2]]\n#&gt; a + 1\n\n\n\nShow the codez &lt;- expr(y &lt;- x + 10)\nexpr_text(z)\n#&gt; [1] \"y &lt;- x + 10\"",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#quosure",
+    "href": "meta_programming.html#quosure",
+    "title": "\n8  元编程\n",
+    "section": "\n8.8 quosure",
+    "text": "8.8 quosure\n\nShow the codewith2 &lt;- function(df, expr) {\n  a &lt;- 1000\n  eval_tidy(enexpr(expr), df)\n}\n\ndf &lt;- data.frame(x = 1:3)\na &lt;- 10\nwith2(df, x + a)\n#&gt; [1] 1001 1002 1003\n\n\n将表达式与环境捆绑在一起的 quosure 数据结构,每当使用数据掩码时，必须始终使用enquo() 而不是enexpr()\n\nShow the codewith2 &lt;- function(df, expr) {\n  a &lt;- 1000\n  eval_tidy(enexpr(expr), df)\n}\n\nwith2(df, x + a)\n#&gt; [1] 1001 1002 1003",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "meta_programming.html#取消引用",
+    "href": "meta_programming.html#取消引用",
+    "title": "\n8  元编程\n",
+    "section": "\n8.9 取消引用",
+    "text": "8.9 取消引用\nunquote operator !!（发音为 bang-bang）\n\nShow the code\n# call\nxx &lt;- expr(x + x)\nyy &lt;- expr(y + y)\n\nexpr(!!xx / !!yy)\n#&gt; (x + x)/(y + y)\n\n\n\nShow the code# 变异系数\ncv &lt;- function(var) {\n  var &lt;- enexpr(var)\n  expr(sd(!!var) / mean(!!var))\n}\n\ncv(x)\n#&gt; sd(x)/mean(x)\ncv(x + y)\n#&gt; sd(x + y)/mean(x + y)",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>元编程</span>"
+    ]
+  },
+  {
+    "objectID": "quasiquotation.html",
+    "href": "quasiquotation.html",
+    "title": "\n9  Quasiquotation\n",
+    "section": "",
+    "text": "9.1 引用\n准引用 Quasiquotation\n拟引函数 quasiquoting functions\n引用（quotation）是捕获未评估表达式的行为\n取消引用（unquotation）!! (发音为bang-bang)是选择性地评估引用的表达式的部分，告诉引用函数删除隐式引号\n准引用（Quasiquotation）使得创建将函数作者编写的代码与函数用户编写的代码相结合的函数变得容易\n取消引用（unquotation）!! (发音为bang-bang)告诉引用函数删除隐式引号",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Quasiquotation</span>"
+    ]
+  },
+  {
+    "objectID": "quasiquotation.html#引用",
+    "href": "quasiquotation.html#引用",
+    "title": "\n9  Quasiquotation\n",
+    "section": "",
+    "text": "9.1.1 捕获表达式\n空格和注释不是表达式的一部分\n捕获（开发人员）形参的表达式，函数主体中\n\nShow the codeexpr(x + y)\n#&gt; x + y\nexpr(1 / 2 / 3)\n#&gt; 1/2/3\n\nexprs(x = x ^ 2, y = y ^ 3, z = z ^ 4)\n#&gt; $x\n#&gt; x^2\n#&gt; \n#&gt; $y\n#&gt; y^3\n#&gt; \n#&gt; $z\n#&gt; z^4\n\n\nf1 &lt;- function(x) expr(x)\nf1(a + b + c)\n#&gt; x\n\n\n捕获用户作为参数传入的表达式，通过传参提供\n\nShow the codef2 &lt;- function(x) enexpr(x)\nf2(a + b + c)\n#&gt; a + b + c\n\n# 捕获多个表达式\nf &lt;- function(...) enexprs(...)\nf(x = 1, y = 10 * z)\n#&gt; $x\n#&gt; [1] 1\n#&gt; \n#&gt; $y\n#&gt; 10 * z\n\nf(mtcars$mpg)\n#&gt; [[1]]\n#&gt; mtcars$mpg\n\n\n\n9.1.2 捕获 symbol\nensym()\nensyms()\n\nShow the codef &lt;- function(...) ensyms(...)\nf(x)\n#&gt; [[1]]\n#&gt; x\nf(\"x\")\n#&gt; [[1]]\n#&gt; x\n\n\n\n9.1.3 替换\n\nShow the codef4 &lt;- function(x) substitute(x * 2)\nf4(a + b + c)\n#&gt; (a + b + c) * 2",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Quasiquotation</span>"
+    ]
+  },
+  {
+    "objectID": "quasiquotation.html#取消引用",
+    "href": "quasiquotation.html#取消引用",
+    "title": "\n9  Quasiquotation\n",
+    "section": "\n9.2 取消引用",
+    "text": "9.2 取消引用\n\n9.2.1 取消引用一个参数\n\nShow the codex &lt;- expr(-1)\nexpr(f(!!x, y))\n#&gt; f(-1, y)\n\na &lt;- sym(\"y\")\nb &lt;- 1\nexpr(f(!!a, !!b))\n#&gt; f(y, 1)\n\n\n右边是函数调用，评估并插入结果\n\nShow the codemean_rm &lt;- function(var) {\n  var &lt;- ensym(var)\n  expr(mean(!!var, na.rm = TRUE))\n}\n\n\nexpr(mean_rm(x) + mean_rm(y))\n#&gt; mean_rm(x) + mean_rm(y)\n\nexpr(!!mean_rm(x) + !!mean_rm(y))\n#&gt; mean(x, na.rm = TRUE) + mean(y, na.rm = TRUE)\n\n\n保留运算符的优先级\n\nShow the codex1 &lt;- expr(x + 1)\nx2 &lt;- expr(x + 2)\n\nexpr(!!x1 / !!x2)\n#&gt; (x + 1)/(x + 2)\n\n\n\n9.2.2 取消引用函数\n\nShow the codef &lt;- expr(pkg::foo)\nf\n#&gt; pkg::foo\nexpr((!!f)(x, y))\n#&gt; pkg::foo(x, y)\n\ncall2(f, expr(x), expr(y))\n#&gt; pkg::foo(x, y)\n\n\n\n9.2.3 取消引用缺失的参数\n\nShow the code\narg &lt;- missing_arg()\n\nexpr(foo(!!arg, !!arg))\n#&gt; Error: argument \"arg\" is missing, with no default\n\nexpr(foo(!!maybe_missing(arg), !!maybe_missing(arg)))\n#&gt; foo(, )\n\n\n\n9.2.4 取消引用特殊形式函数参数\n\nShow the codex &lt;- expr(mpg)\nexpr(`$`(mtcars, !!x))\n#&gt; mtcars$mpg\n\n\n\n9.2.5 取消引用多个参数\nunquote-splice !!! ，发音为 bang-bang-bang，一对多的替换插入\n\nShow the codexs &lt;- exprs(1, a, -b)\nexpr(f(!!!xs, y))\n#&gt; f(1, a, -b, y)\n\n\n# Or with names\nys &lt;- set_names(xs, c(\"a\", \"b\", \"c\"))\nexpr(f(!!!ys, d = 4))\n#&gt; f(a = 1, b = a, c = -b, d = 4)\n\n\ncall2(\"f\", !!!xs, expr(y))\n#&gt; f(1, a, -b, y)\n\n\n\n9.2.6 点-点-点 ...\n\n与 Python 中的 args 和 kwarg（star-star-kwargs） 密切相关\n\nShow the codedfs &lt;- list(\n  a = data.frame(x = 1, y = 2),\n  b = data.frame(x = 3, y = 4)\n)\n\ndplyr::bind_rows(!!!dfs)\n#&gt;   x y\n#&gt; 1 1 2\n#&gt; 2 3 4\n\ndo.call(\"rbind\", dfs)\n#&gt;   x y\n#&gt; a 1 2\n#&gt; b 3 4\n\n\n间接提供参数名称，:= 发音为 colon-equals\n\nShow the codevar &lt;- \"x\"\nval &lt;- c(4, 3, 9)\n\ntibble::tibble(!!var := val)\n#&gt; # A tibble: 3 × 1\n#&gt;       x\n#&gt;   &lt;dbl&gt;\n#&gt; 1     4\n#&gt; 2     3\n#&gt; 3     9\n\nargs &lt;- list(val)\nnames(args) &lt;- var\n\ndo.call(\"data.frame\", args)\n#&gt;   x\n#&gt; 1 4\n#&gt; 2 3\n#&gt; 3 9",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Quasiquotation</span>"
+    ]
+  },
+  {
+    "objectID": "evaluation.html",
+    "href": "evaluation.html",
+    "title": "\n10  Evaluation\n",
+    "section": "",
+    "text": "10.1 非标准求值\n“Evaluation”（求值）是指执行代码并计算表达式的值的过程。",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "evaluation.html#整洁求值",
+    "href": "evaluation.html#整洁求值",
+    "title": "\n10  Evaluation\n",
+    "section": "\n10.2 整洁求值",
+    "text": "10.2 整洁求值\nTidy Evaluation (Tidy Eval) 是一个非标准评估的框架，也叫延迟评估。\n\nquasiquotation\nquosures\ndata masking\n\n\nShow the codelibrary(tidyverse)\nlibrary(rlang)\nlibrary(purrr)",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "evaluation.html#quosure",
+    "href": "evaluation.html#quosure",
+    "title": "\n10  Evaluation\n",
+    "section": "\n10.3 Quosure",
+    "text": "10.3 Quosure\n\nShow the codex &lt;- mtcars$mpg\nenquo(x)\n#&gt; &lt;quosure&gt;\n#&gt; expr: ^&lt;dbl: 21, 21, 22.8, 21.4, 18.7, ...&gt;\n#&gt; env:  empty\nenquo(mtcars)\n#&gt; &lt;quosure&gt;\n#&gt; expr: ^&lt;df[,11]&gt;\n#&gt; env:  empty\n\nmutate(mtcars,!!\"cyl\") %&gt;% head()\n#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb \"cyl\"\n#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4   cyl\n#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4   cyl\n#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1   cyl\n#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1   cyl\n#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2   cyl\n#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1   cyl\n\n\n\nShow the codegrouped_mean &lt;- function(data, summary_var, ...) {\n  summary_var &lt;- enquo(summary_var)\n    group_var &lt;- enquos(...)\n \n  data %&gt;%\n    group_by(!!!group_var) %&gt;%   ### 准引用  unquote-splice !!! ，发音为 bang-bang-bang，取消引用多个参数\n    summarise(mean = mean(!!summary_var))\n}\n\ngrouped_mean(mtcars, cyl, mpg)\n#&gt; # A tibble: 25 × 2\n#&gt;      mpg  mean\n#&gt;    &lt;dbl&gt; &lt;dbl&gt;\n#&gt;  1  10.4     8\n#&gt;  2  13.3     8\n#&gt;  3  14.3     8\n#&gt;  4  14.7     8\n#&gt;  5  15       8\n#&gt;  6  15.2     8\n#&gt;  7  15.5     8\n#&gt;  8  15.8     8\n#&gt;  9  16.4     8\n#&gt; 10  17.3     8\n#&gt; # ℹ 15 more rows\n\n\n\nShow the codegrouped_mean &lt;- function(data, group_var, summary_var) {\n  data %&gt;%\n    group_by({{group_var}}) %&gt;%\n    summarise(mean = mean({{summary_var}}))\n}\n\ngrouped_mean(mtcars, cyl, mpg)\n#&gt; # A tibble: 3 × 2\n#&gt;     cyl  mean\n#&gt;   &lt;dbl&gt; &lt;dbl&gt;\n#&gt; 1     4  26.7\n#&gt; 2     6  19.7\n#&gt; 3     8  15.1",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "evaluation.html#data-masking",
+    "href": "evaluation.html#data-masking",
+    "title": "\n10  Evaluation\n",
+    "section": "\n10.4 Data masking",
+    "text": "10.4 Data masking\ndata masking\n\n环境变量(env-variables) ，一般你在Rstuido右上角的Environment中发现它。比如n &lt;- 10这里的n\n数据变量(data-variables)，一般指数据框的某个变量。比如data &lt;- data.frame(x = 1, n = 2)中的data$n\n\ngrouped_mean(mtcars, cyl, mpg)\ncyl和mpg是打算传递的参数，是环境变量，但我们期望他们在函数中当作mtcars中的数据变量，即当做mtcars的一个列的名字来使用， 那么要完成这个角色转换，就需要引用(quote)和解引用(unquote)两个工序：\n\n第一步，用 enquo()把用户传递过来的参数引用起来\n第二步，用 !! 取消引用，然后使用参数的内容\n\n这个quote-unquote的过程让环境变量名变成了数据变量，也可以理解为在函数评估过程中，数据变量（data-variable）遮盖了环境变量（env-variable），即数据遮盖（data masking），看到cyl，正常情况下，本来应该是到环境变量里去找这个cyl对应的值，然而，数据遮盖机制，插队了，让代码去数据变量中去找cyl以及对应的值。\n我们通过rlang::qq_show()看看这个quote-unquote机制是怎么工作的\n先看看qq_show()\n\nShow the code  group_var &lt;-  quote(cyl)\nsummary_var &lt;-  quote(mpg)\n    \nrlang::qq_show( \n    data %&gt;%\n    group_by(!!group_var) %&gt;%\n    summarise(mean = mean(!!summary_var))\n)\n#&gt; data %&gt;% group_by(cyl) %&gt;% summarise(mean = mean(mpg))",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Evaluation</span>"
+    ]
+  },
+  {
+    "objectID": "evaluation.html#名称注入",
+    "href": "evaluation.html#名称注入",
+    "title": "\n10  Evaluation\n",
+    "section": "\n10.5 名称注入",
+    "text": "10.5 名称注入\n\n10.5.1 glue 语法\n\nShow the codename &lt;- \"susan\" \ntibble(\"{name}\" := 2)\n#&gt; # A tibble: 1 × 1\n#&gt;   susan\n#&gt;   &lt;dbl&gt;\n#&gt; 1     2\n\n\n\n10.5.2 embracing 语法\n\nShow the codemy_summarise4 &lt;- function(data,by, expr) {   \n    data %&gt;% \n        summarise(     \"mean_{{expr}}\" := mean({{ expr }}),   #embracing拥抱 {{}}     \n                       \"sum_{{expr}}\" := sum({{ expr }}), #拥抱变量会告诉 dplyr使用存储在参数中的值，而不是将参数作为文本变量名称     \n                       \"n_{{expr}}\" := n(),   # 海象运算符（walrus） :=     \n                       .by ={{by}}   ) }   \n\nmy_summarise4(mpg,by = cyl, expr = displ)\n#&gt; # A tibble: 4 × 4\n#&gt;     cyl mean_displ sum_displ n_displ\n#&gt;   &lt;int&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;int&gt;\n#&gt; 1     4       2.15      174.      81\n#&gt; 2     6       3.41      269.      79\n#&gt; 3     8       5.13      359.      70\n#&gt; 4     5       2.5        10        4\n\n\n何时使用{{}}\n\nData-masking: arrange()filter()summarize() compute with variables\nTidy-selection：select()relocate()rename() select variables\n\n\nShow the coderr &lt;- function(dt, oldName, newName) { \n rename(dt, !!rlang::sym(newName) := !! rlang::sym(oldName))\n      }\n\nrr(dt = as_tibble(iris), oldName = 'Petal.Width', newName = 'petal') %&gt;%\n      head(., 2)\n#&gt; # A tibble: 2 × 5\n#&gt;   Sepal.Length Sepal.Width Petal.Length petal Species\n#&gt;          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;  \n#&gt; 1          5.1         3.5          1.4   0.2 setosa \n#&gt; 2          4.9         3            1.4   0.2 setosa",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Evaluation</span>"
+    ]
+  }
+]

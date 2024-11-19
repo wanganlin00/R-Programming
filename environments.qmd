@@ -85,7 +85,7 @@ e2c <- env(empty_env(), d = 4, e = 5)
 e2d <- env(e2c, a = 1, b = 2, c = 3)
 ```
 
-![](images/parents-empty.png){fig-align="center" width="50%"}
+![](images/parents-EmptyEnv.png){fig-align="center" width="200"}
 
 ```{r}
 # 查看所有父级
@@ -252,8 +252,6 @@ e3a <- env(empty_env(), a = 1, b = 2)
 e3b <- env(e3a, x = 10, a = 11)
 ```
 
-![](images/where-ex.png){fig-align="center" width="50%"}
-
 ```{r error=TRUE}
 where("a", e3b)
 
@@ -262,6 +260,8 @@ e3a
 
 where("c", e3b)
 ```
+
+![](images/where-recurse.png){fig-align="center" width="200"}
 
 ### 迭代iteration
 
@@ -383,7 +383,7 @@ h <- function(x) {
 y <- h(1) # 3.
 ```
 
-![](images/execution.png){#fig-execution fig-align="center" width="35%"}
+![](images/execution_environment.png){#fig-execution fig-align="center" width="200"}
 
 执行环境通常是短暂的;函数完成后，环境将被垃圾回收（*garbage collected*）。
 

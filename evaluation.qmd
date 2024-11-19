@@ -105,7 +105,6 @@ name <- "susan"
 tibble("{name}" := 2)
 ```
 
-
 ### embracing 语法
 
 ```{r}
@@ -125,7 +124,6 @@ my_summarise4(mpg,by = cyl, expr = displ)
 
 -   Tidy-selection：select()relocate()rename() select variables
 
-
 ```{r}
 rr <- function(dt, oldName, newName) { 
  rename(dt, !!rlang::sym(newName) := !! rlang::sym(oldName))
@@ -134,4 +132,3 @@ rr <- function(dt, oldName, newName) {
 rr(dt = as_tibble(iris), oldName = 'Petal.Width', newName = 'petal') %>%
       head(., 2)
 ```
-

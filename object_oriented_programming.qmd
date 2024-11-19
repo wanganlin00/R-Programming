@@ -577,7 +577,7 @@ OOP风格又分为两种风格：一种是基于对象的编程（Object-Based P
 
 proto对象的元素分为两类：一类称为属性（field），在R中就是变量（variable），如oo中的x；另一类称为方法（method），在R中就是函数（function）
 
-### ggproto 
+### ggproto
 
 [参考 ggplot2-book.org/internals#sec-ggproto](https://ggplot2-book.org/internals#sec-ggproto)
 
@@ -621,7 +621,7 @@ NewSubClass
 
 <http://blog.fens.me/r-class-r6/>
 
-![](images/clipboard-2995327692.png)
+![](images/R6class-book.png){fig-align="center" width="50%"}
 
 ```{r}
 library(R6)
