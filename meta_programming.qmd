@@ -4,6 +4,30 @@
 
 与元编程紧密相关的是**非标准求值（non-standard evaluations，NSE）**，不遵循通常的求值规则，而是捕获键入的表达式并以自定义的方式对其进行求值。
 
+## Base R 捕获表达式
+
+```{r}
+substitute(1:10)
+
+deparse(substitute(1:10))
+deparse(1:10)
+
+
+quote(1:10)
+
+select_custom <- function(df, vars) {
+  vars <- substitute(vars)
+  var_pos <- setNames(as.list(seq_along(df)), names(df))
+  pos <- eval(expr = vars,envir =  var_pos)
+  df[, pos, drop = FALSE]
+}
+
+mtcars %>% 
+    select_custom(-(cyl:wt))
+
+
+```
+
 **整洁求值( tidy evaluation)**
 
 1.  data masking
